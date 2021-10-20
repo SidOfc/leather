@@ -1,7 +1,7 @@
 {
     "name": "leather",
     "version": "1.0.1",
-    "description": "",
+    "description": "A pure JS library for extracting image/video dimensions",
     "author": "Sidney Liebrand",
     "license": "MIT",
     "repository": "github:SidOfc/leather",
