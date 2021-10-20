@@ -67,7 +67,7 @@ console.log(leather.attributes('cat.jpg'));
 
 The _width_ and _height_ are _pixel based_. The _size_ is the same as
 [`fs.stat`](https://nodejs.org/api/fs.html#fsstatpath-options-callback).
-If the dimensions could not be found, they will be `0`.
+If the width or height could not be extracted, they will default to `0`.
 
 # Supported formats
 

@@ -1,4 +1,9 @@
-export function attributes(stream) {
+import {lazystream} from '../util.js';
+
+export function attributes(file) {
+    const stream = lazystream(file);
+    const result = {width: 0, height: 0};
+
     stream.skip(4);
 
     while (stream.more()) {
@@ -8,12 +13,14 @@ export function attributes(stream) {
 
         if (mark !== 0xff) break;
         if (next === 0xc0 || next === 0xc1 || next === 0xc2) {
-            const height = stream.skip(3).takeUInt16BE();
-            const width = stream.takeUInt16BE();
+            result.height = stream.skip(3).takeUInt16BE();
+            result.width = stream.takeUInt16BE();
 
-            return {width, height};
+            break;
         }
     }
 
-    return {width: 0, height: 0};
+    stream.close();
+
+    return result;
 }

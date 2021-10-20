@@ -1,11 +1,19 @@
-export function attributes(stream) {
+import {lazystream} from '../util.js';
+
+export function attributes(file) {
+    const stream = lazystream(file);
+    const result = {width: 0, height: 0};
     const startIndex = stream.indexOf(Buffer.from([0xb0]));
-    const widthSize = stream.skip(startIndex + 1).takeByte() & 0x7;
-    const width = parseInt(stream.takeHex(widthSize), 16);
-    const heightSize = stream.skip(1).takeByte() & 0x7;
-    const height = parseInt(stream.takeHex(heightSize), 16);
 
-    if (startIndex === -1) return {width: 0, height: 0};
+    if (startIndex !== -1) {
+        const widthSize = stream.skip(startIndex + 1).takeByte() & 0x7;
+        result.width = parseInt(stream.takeHex(widthSize), 16);
 
-    return {width, height};
+        const heightSize = stream.skip(1).takeByte() & 0x7;
+        result.height = parseInt(stream.takeHex(heightSize), 16);
+    }
+
+    stream.close();
+
+    return result;
 }

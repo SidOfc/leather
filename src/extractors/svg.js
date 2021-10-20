@@ -1,3 +1,5 @@
+import {lazystream} from '../util.js';
+
 const UNITS = {
     m: 3779.5275590551178,
     cm: 37.795275590551178,
@@ -49,7 +51,8 @@ function extractViewbox(data) {
     return {width: 0, height: 0, ratio: 1};
 }
 
-export function attributes(stream) {
+export function attributes(file) {
+    const stream = lazystream(file);
     const bytes = [];
     let startIndex = null;
     let insideAttr = false;
@@ -90,6 +93,8 @@ export function attributes(stream) {
             bytes.push(byte);
         }
     }
+
+    stream.close();
 
     const data = Buffer.from(bytes).toString();
     const width = extractWidth(data);

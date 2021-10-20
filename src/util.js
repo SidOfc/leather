@@ -1,10 +1,14 @@
 import fs from 'fs';
 
 export function lazystream(file) {
+    if (file && file._lazystream) return file;
+
     let position = 0;
+    let closed = false;
     const fd = fs.openSync(file, 'r');
     const {size} = fs.statSync(file);
     const methods = {
+        _lazystream: true,
         skip(bytes = 1) {
             position += bytes;
 
@@ -100,6 +104,9 @@ export function lazystream(file) {
         },
 
         close() {
+            if (closed) return;
+
+            closed = true;
             fs.closeSync(fd);
         },
     };
