@@ -6,7 +6,7 @@ export function lazystream(file) {
     let position = 0;
     let closed = false;
     const fd = fs.openSync(file, 'r');
-    const {size} = fs.statSync(file);
+    const {size} = fs.fstatSync(fd);
     const methods = {
         _lazystream: true,
         skip(bytes = 1) {
