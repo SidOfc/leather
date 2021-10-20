@@ -1,0 +1,24 @@
+{
+    "name": "leather",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "cross-env NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest test"
+    },
+    "keywords": [],
+    "author": "Sidney Liebrand",
+    "license": "MIT",
+    "prettier": {
+        "tabWidth": 4,
+        "singleQuote": true,
+        "printWidth": 80,
+        "bracketSpacing": false
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "jest": "^27.3.1",
+        "prettier": "^2.4.1"
+    }
+}
