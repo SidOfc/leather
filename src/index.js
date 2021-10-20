@@ -1,16 +1,16 @@
-import {lazystream} from '../util.js';
-import jpg from './jpg.js';
-import png from './png.js';
-import gif from './gif.js';
-import bmp from './bmp.js';
-import ico from './ico.js';
-import dds from './dds.js';
-import psd from './psd.js';
-import svg from './svg.js';
-import avi from './avi.js';
-import ogv from './ogv.js';
-import mp4 from './mp4.js';
-import webm from './webm.js';
+import {lazystream} from './util.js';
+import {attributes as jpg} from './extractors/jpg.js';
+import {attributes as png} from './extractors/png.js';
+import {attributes as gif} from './extractors/gif.js';
+import {attributes as bmp} from './extractors/bmp.js';
+import {attributes as ico} from './extractors/ico.js';
+import {attributes as dds} from './extractors/dds.js';
+import {attributes as psd} from './extractors/psd.js';
+import {attributes as svg} from './extractors/svg.js';
+import {attributes as avi} from './extractors/avi.js';
+import {attributes as ogv} from './extractors/ogv.js';
+import {attributes as mp4} from './extractors/mp4.js';
+import {attributes as webm} from './extractors/webm.js';
 
 // dimension to byte mapping to make it easier
 // to identify byte offsets of hexdump output
@@ -54,7 +54,7 @@ const extractors = {
     },
 };
 
-export default function attributes(file) {
+export function attributes(file) {
     const stream = lazystream(file);
     const result = {width: 0, height: 0, size: stream.size()};
     const extract = extractors.find(stream.identifier());

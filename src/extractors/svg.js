@@ -49,7 +49,7 @@ function extractViewbox(data) {
     return {width: 0, height: 0, ratio: 1};
 }
 
-export default function attributes(stream) {
+export function attributes(stream) {
     const bytes = [];
     let startIndex = null;
     let insideAttr = false;

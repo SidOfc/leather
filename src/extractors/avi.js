@@ -1,4 +1,4 @@
-export default function attributes(stream) {
+export function attributes(stream) {
     const width = stream.skip(64).takeUInt32LE();
     const height = stream.takeUInt32LE();
 

@@ -1,4 +1,4 @@
-export default function attributes(stream) {
+export function attributes(stream) {
     stream.skip(4);
 
     while (stream.more()) {

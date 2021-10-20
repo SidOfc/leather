@@ -1,15 +1,35 @@
 {
     "name": "leather",
     "version": "1.0.0",
-    "type": "module",
     "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "cross-env NODE_OPTIONS='--experimental-vm-modules --no-warnings' npx jest test"
-    },
-    "keywords": [],
     "author": "Sidney Liebrand",
     "license": "MIT",
+    "repository": "github:SidOfc/leather",
+    "keywords": [],
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs"
+        },
+        "./*": {
+            "import": "./dist/*.mjs",
+            "require": "./dist/*.cjs"
+        }
+    },
+    "scripts": {
+        "test": "ava --verbose",
+        "build": "rollup -c",
+        "watch": "rollup -cw",
+        "prepare": "npm run build"
+    },
+    "ava": {
+        "require": [
+            "esm"
+        ]
+    },
     "prettier": {
         "tabWidth": 4,
         "singleQuote": true,
@@ -17,8 +37,9 @@
         "bracketSpacing": false
     },
     "devDependencies": {
-        "cross-env": "^7.0.3",
-        "jest": "^27.3.1",
-        "prettier": "^2.4.1"
+        "ava": "^3.15.0",
+        "esm": "^3.2.25",
+        "prettier": "^2.4.1",
+        "rollup": "^2.58.0"
     }
 }

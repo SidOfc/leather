@@ -1,4 +1,4 @@
-export default function attributes(stream) {
+export function attributes(stream) {
     const startIndex = stream.indexOf(Buffer.from('tkhd'));
 
     if (startIndex === -1) return {width: 0, height: 0};
