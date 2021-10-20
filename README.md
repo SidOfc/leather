@@ -88,3 +88,10 @@ If the width or height could not be extracted, they will default to `0`.
 - ogv
 - mp4
 - webm
+
+# Credits
+
+A lot of the image dimension extraction is based on
+[`image-size`](https://www.npmjs.com/package/image-size) with a few
+alterations in some of the extractors.
+

@@ -5,7 +5,25 @@
     "author": "Sidney Liebrand",
     "license": "MIT",
     "repository": "github:SidOfc/leather",
-    "keywords": [],
+    "keywords": [
+        "image",
+        "video",
+        "dimensions",
+        "width",
+        "height",
+        "jpg",
+        "png",
+        "gif",
+        "bmp",
+        "ico",
+        "dds",
+        "psd",
+        "svg",
+        "avi",
+        "ogv",
+        "mp4",
+        "webm"
+    ],
     "files": [
         "dist"
     ],
