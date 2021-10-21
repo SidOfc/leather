@@ -69,6 +69,29 @@ The _width_ and _height_ are _pixel based_. The _size_ is the same as
 [`fs.stat`](https://nodejs.org/api/fs.html#fsstatpath-options-callback).
 If the width or height could not be extracted, they will default to `0`.
 
+## Using specific extractors
+
+If you are only using one or a few of the extractors, you can opt to
+require only the extractors you need, e.g. for jpg/jpeg using commonjs:
+
+```
+const jpg = require('leather/extractors/jpg');
+
+console.log(jpg.attributes('cat.jpg'));
+
+// => {width: 200, height: 200, size: 40000}
+```
+
+Or using ES modules:
+
+```
+import jpg from 'leather/extractors/jpg';
+
+console.log(jpg.attributes('cat.jpg'));
+
+// => {width: 200, height: 200, size: 40000}
+```
+
 # Supported formats
 
 :framed_picture: **Image**
