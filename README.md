@@ -33,13 +33,13 @@ by steering clear of any command-line tools which makes it more portable.
 
 Install the package locally using [`npm`](https://www.npmjs.com/):
 
-```
+```shell
 npm install leather --save
 ```
 
 Or using [`yarn`](https://yarnpkg.com/)
 
-```
+```shell
 yarn add leather
 ```
 
@@ -47,19 +47,20 @@ yarn add leather
 
 After [installing the package](#installation), it can be imported using commonjs:
 
-```
+```javascript
 const leather = require('leather');
 ```
 
 Or using ES modules:
 
-```
+```javascript
 import leather from 'leather';
 ```
 
 Then, it can be called on [supported image and video formats](#supported-formats):
 
-```
+```javascript
+
 console.log(leather.attributes('cat.jpg'));
 
 // => {width: 200, height: 200, size: 40000}
@@ -74,7 +75,8 @@ If the width or height could not be extracted, they will default to `0`.
 If you are only using one or a few of the extractors, you can opt to
 require only the extractors you need, e.g. for jpg/jpeg using commonjs:
 
-```
+```javascript
+
 const jpg = require('leather/extractors/jpg');
 
 console.log(jpg.attributes('cat.jpg'));
@@ -84,7 +86,8 @@ console.log(jpg.attributes('cat.jpg'));
 
 Or using ES modules:
 
-```
+```javascript
+
 import jpg from 'leather/extractors/jpg';
 
 console.log(jpg.attributes('cat.jpg'));
