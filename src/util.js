@@ -10,6 +10,7 @@ const BYTE_IDENTIFIERS = {
     ['52494646']: 'avi',
     ['4f676753']: 'ogv',
     ['00000020']: 'mp4',
+    ['1a45dfa301']: 'webm',
     ['1a45dfa39f']: 'webm',
     ['1a45dfa3a3']: 'mkv',
     // ico and cur files have similar byte layouts

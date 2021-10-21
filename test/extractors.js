@@ -61,6 +61,12 @@ test('webm', (t) =>
         attributes('test/files/example.webm')
     ));
 
+test('webm (alternate)', (t) =>
+    t.like(
+        {width: 768, height: 180, size: 9579, mime: 'video/webm'},
+        attributes('test/files/example.alternate.webm')
+    ));
+
 test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},

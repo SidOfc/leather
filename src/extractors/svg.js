@@ -43,7 +43,10 @@ function extractViewbox(data) {
     const matches = data.match(VIEWBOX_PATTERN);
 
     if (matches) {
-        const [width, height] = viewbox.split(' ').slice(2).map(parseDimension);
+        const [width, height] = matches[2]
+            .split(' ')
+            .slice(2)
+            .map(parseDimension);
 
         return {width, height, ratio: width / height};
     }
