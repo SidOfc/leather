@@ -98,23 +98,22 @@ console.log(jpg.attributes('cat.jpg'));
 
 # Supported formats
 
-:framed_picture: **Image**
-
-- jpg
-- png
-- gif
-- bmp
-- dds
-- psd
-- svg
-- ico / cur
-
-:movie_camera: **Video**
-
-- avi
-- ogv
-- mp4
-- webm / mkv
+| identifier | type  | mime type                 |
+|:----------:|:-----:|:--------------------------|
+|    jpg     | image | image/jpeg                |
+|    png     | image | image/png                 |
+|    gif     | image | image/gif                 |
+|    bmp     | image | image/bmp                 |
+|    dds     | image | image/vnd.ms-dds          |
+|    psd     | image | image/vnd.adobe.photoshop |
+|    svg     | image | image/svg+xml             |
+|    ico     | image | image/x-icon              |
+|    cur     | image | image/x-icon              |
+|    avi     | video | video/x-msvideo           |
+|    ogv     | video | video/ogg                 |
+|    mkv     | video | video/x-matroska          |
+|    mp4     | video | video/mp4                 |
+|    webm    | video | video/webm                |
 
 # Credits
 
