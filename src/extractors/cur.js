@@ -1,0 +1,1 @@
+export {attributes} from './ico';

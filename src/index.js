@@ -1,16 +1,18 @@
-import {lazystream} from './util.js';
-import {attributes as jpg} from './extractors/jpg.js';
-import {attributes as png} from './extractors/png.js';
-import {attributes as gif} from './extractors/gif.js';
-import {attributes as bmp} from './extractors/bmp.js';
-import {attributes as ico} from './extractors/ico.js';
-import {attributes as dds} from './extractors/dds.js';
-import {attributes as psd} from './extractors/psd.js';
-import {attributes as svg} from './extractors/svg.js';
-import {attributes as avi} from './extractors/avi.js';
-import {attributes as ogv} from './extractors/ogv.js';
-import {attributes as mp4} from './extractors/mp4.js';
-import {attributes as webm} from './extractors/webm.js';
+import {lazystream} from './util';
+import {attributes as jpg} from './extractors/jpg';
+import {attributes as png} from './extractors/png';
+import {attributes as gif} from './extractors/gif';
+import {attributes as bmp} from './extractors/bmp';
+import {attributes as ico} from './extractors/ico';
+import {attributes as cur} from './extractors/cur';
+import {attributes as dds} from './extractors/dds';
+import {attributes as psd} from './extractors/psd';
+import {attributes as svg} from './extractors/svg';
+import {attributes as avi} from './extractors/avi';
+import {attributes as ogv} from './extractors/ogv';
+import {attributes as mp4} from './extractors/mp4';
+import {attributes as mkv} from './extractors/mkv';
+import {attributes as webm} from './extractors/webm';
 
 // dimension to byte mapping to make it easier
 // to identify byte offsets of hexdump output
@@ -31,13 +33,13 @@ const extractors = {
     gif,
     psd,
     ico,
-    cur: ico,
+    cur,
     svg,
     avi,
     ogv,
     mp4,
     webm,
-    mkv: webm,
+    mkv,
 };
 
 export function attributes(file) {

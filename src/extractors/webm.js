@@ -1,8 +1,8 @@
-import {lazystream} from '../util.js';
+import {lazystream} from '../util';
 
 export function attributes(file) {
     const stream = lazystream(file);
-    const result = {width: 0, height: 0, size: stream.size()};
+    const result = {width: 0, height: 0, ...stream.attrs()};
     const startIndex = stream.indexOf(Buffer.from([0xb0]));
 
     if (startIndex !== -1) {

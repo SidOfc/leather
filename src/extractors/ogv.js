@@ -1,12 +1,12 @@
-import {lazystream} from '../util.js';
+import {lazystream} from '../util';
 
 export function attributes(file) {
     const stream = lazystream(file);
-    const size = stream.size();
     const width = parseInt(stream.skip(42).takeHex(3), 16);
     const height = parseInt(stream.takeHex(3), 16);
+    const result = {width, height, ...stream.attrs()};
 
     stream.close();
 
-    return {width, height, size};
+    return result;
 }

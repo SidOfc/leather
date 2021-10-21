@@ -10,8 +10,8 @@ const BYTE_IDENTIFIERS = {
     ['52494646']: 'avi',
     ['4f676753']: 'ogv',
     ['00000020']: 'mp4',
-    ['1a45dfa3']: 'webm',
-
+    ['1a45dfa39f']: 'webm',
+    ['1a45dfa3a3']: 'mkv',
     // ico and cur files have similar byte layouts
     // so we can use the same converter for both
     ['00000100']: 'ico', // ico starts with 000001
@@ -22,6 +22,23 @@ const BYTE_IDENTIFIERS = {
     ['3c3f584d']: 'svg', // match initial bytes: <?XM
     ['3c737667']: 'svg', // match initial bytes: <svg
     ['3c535647']: 'svg', // match initial bytes: <SVG
+};
+
+const MIME_TYPES = {
+    bmp: 'image/bmp',
+    jpg: 'image/jpeg',
+    dds: 'image/vnd.ms-dds',
+    png: 'image/png',
+    gif: 'image/gif',
+    svg: 'image/svg+xml',
+    psd: 'image/vnd.adobe.photoshop',
+    ico: 'image/x-icon',
+    cur: 'image/x-icon',
+    avi: 'video/x-msvideo',
+    ogv: 'video/ogg',
+    mp4: 'video/mp4',
+    webm: 'video/webm',
+    mkv: 'video/x-matroska',
 };
 
 export function lazystream(file) {
@@ -64,6 +81,14 @@ export function lazystream(file) {
 
         identifier() {
             return identifier;
+        },
+
+        mime() {
+            return MIME_TYPES[identifier];
+        },
+
+        attrs() {
+            return {size: methods.size(), mime: methods.mime()};
         },
 
         take(bytes = 1) {
@@ -132,7 +157,7 @@ export function lazystream(file) {
         },
     };
 
-    const firstBytes = methods.takeHex(8);
+    const firstBytes = methods.takeHex(5);
     methods.rewind();
 
     for (const key in BYTE_IDENTIFIERS) {
