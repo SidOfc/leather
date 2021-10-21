@@ -2,10 +2,11 @@ import {lazystream} from '../util.js';
 
 export function attributes(file) {
     const stream = lazystream(file);
+    const size = stream.size();
     const height = stream.skip(14).takeUInt32BE();
     const width = stream.takeUInt32BE();
 
     stream.close();
 
-    return {width, height};
+    return {width, height, size};
 }

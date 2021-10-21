@@ -1,10 +1,35 @@
 import fs from 'fs';
 
+const BYTE_IDENTIFIERS = {
+    ['424d']: 'bmp',
+    ['ffd8']: 'jpg',
+    ['44445320']: 'dds',
+    ['89504e47']: 'png',
+    ['47494638']: 'gif',
+    ['38425053']: 'psd',
+    ['52494646']: 'avi',
+    ['4f676753']: 'ogv',
+    ['00000020']: 'mp4',
+    ['1a45dfa3']: 'webm',
+
+    // ico and cur files have similar byte layouts
+    // so we can use the same converter for both
+    ['00000100']: 'ico', // ico starts with 000001
+    ['00000200']: 'cur', // cur starts with 000002
+
+    // svg can start with "<?xm", "<?XM", "<svg", or "<SVG"
+    ['3c3f786d']: 'svg', // match initial bytes: <?xm
+    ['3c3f584d']: 'svg', // match initial bytes: <?XM
+    ['3c737667']: 'svg', // match initial bytes: <svg
+    ['3c535647']: 'svg', // match initial bytes: <SVG
+};
+
 export function lazystream(file) {
     if (file && file._lazystream) return file;
 
     let position = 0;
     let closed = false;
+    let identifier = null;
     const fd = fs.openSync(file, 'r');
     const {size} = fs.fstatSync(fd);
     const methods = {
@@ -38,11 +63,7 @@ export function lazystream(file) {
         },
 
         identifier() {
-            const id = methods.takeHex(4);
-
-            methods.rewind();
-
-            return id;
+            return identifier;
         },
 
         take(bytes = 1) {
@@ -110,6 +131,17 @@ export function lazystream(file) {
             fs.closeSync(fd);
         },
     };
+
+    const firstBytes = methods.takeHex(8);
+    methods.rewind();
+
+    for (const key in BYTE_IDENTIFIERS) {
+        if (firstBytes.startsWith(key)) {
+            identifier = BYTE_IDENTIFIERS[key];
+
+            break;
+        }
+    }
 
     return methods;
 }

@@ -53,6 +53,7 @@ function extractViewbox(data) {
 
 export function attributes(file) {
     const stream = lazystream(file);
+    const size = stream.size();
     const bytes = [];
     let startIndex = null;
     let insideAttr = false;
@@ -99,13 +100,29 @@ export function attributes(file) {
     const data = Buffer.from(bytes).toString();
     const width = extractWidth(data);
     const height = extractHeight(data);
+    const result = {width: 0, height: 0, size};
 
-    if (width && height) return {width, height};
+    if (width && height) {
+        Object.assign(result, {width, height});
+    } else {
+        const viewbox = extractViewbox(data);
 
-    const viewbox = extractViewbox(data);
+        if (width)
+            Object.assign(result, {
+                width,
+                height: Math.floor(width / viewbox.ratio),
+            });
+        else if (height)
+            Object.assign(result, {
+                width: Math.floor(height * viewbox.ratio),
+                height,
+            });
+        else
+            Object.assign(result, {
+                width: viewbox.width,
+                height: viewbox.height,
+            });
+    }
 
-    if (width) return {width, height: Math.floor(width / viewbox.ratio)};
-    if (height) return {width: Math.floor(height * viewbox.ratio), height};
-
-    return {width: viewbox.width, height: viewbox.height};
+    return result;
 }

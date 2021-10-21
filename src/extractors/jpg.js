@@ -2,7 +2,7 @@ import {lazystream} from '../util.js';
 
 export function attributes(file) {
     const stream = lazystream(file);
-    const result = {width: 0, height: 0};
+    const result = {width: 0, height: 0, size: stream.size()};
 
     stream.skip(4);
 

@@ -23,7 +23,8 @@ position and reads the dimensions directly.
 
 Before `leather`, if you wanted to do something like this in Node
 you would need to install `image-size` to handle images and either
-use `ffprobe` directly or using some kind of wrapper package.
+use `ffprobe` directly or using some kind of wrapper package to
+handle video files.
 
 While I love `ffprobe` for its capabilities, setting up a cross-platform
 package requires some configuration. This package aims to solve that
@@ -113,7 +114,7 @@ console.log(jpg.attributes('cat.jpg'));
 - avi
 - ogv
 - mp4
-- webm
+- webm / mkv
 
 # Credits
 
