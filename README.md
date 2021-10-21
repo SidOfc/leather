@@ -64,12 +64,13 @@ Then, it can be called on [supported image and video formats](#supported-formats
 
 console.log(leather.attributes('cat.jpg'));
 
-// => {width: 200, height: 200, size: 40000}
+// => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
 
 The _width_ and _height_ are _pixel based_. The _size_ is the same as
 [`fs.stat`](https://nodejs.org/api/fs.html#fsstatpath-options-callback).
 If the width or height could not be extracted, they will default to `0`.
+The _mime_ type is also returned if found, otherwise `undefined`.
 
 ## Using specific extractors
 
@@ -82,7 +83,7 @@ const jpg = require('leather/extractors/jpg');
 
 console.log(jpg.attributes('cat.jpg'));
 
-// => {width: 200, height: 200, size: 40000}
+// => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
 
 Or using ES modules:
@@ -93,7 +94,7 @@ import jpg from 'leather/extractors/jpg';
 
 console.log(jpg.attributes('cat.jpg'));
 
-// => {width: 200, height: 200, size: 40000}
+// => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
 
 # Supported formats
