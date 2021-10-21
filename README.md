@@ -1,5 +1,10 @@
 # Leather
 
+![Licence](https://img.shields.io/badge/license-MIT-E9573F.svg)
+[![npm](https://img.shields.io/npm/v/leather)](https://www.npmjs.com/package/leather)
+[![Issues](https://img.shields.io/github/issues/SidOfc/leather.svg)](https://github.com/SidOfc/leather/issues)
+[![Build Status](https://circleci.com/gh/SidOfc/leather.svg?style=shield)](https://app.circleci.com/pipelines/github/SidOfc/leather)
+
 Have you ever wished for the ability to retrieve image or video file dimensions
 in Node without having to resort to external libraries such as `ffprobe`?
 
