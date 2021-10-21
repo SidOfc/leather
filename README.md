@@ -98,6 +98,8 @@ console.log(jpg.attributes('cat.jpg'));
 
 # Supported formats
 
+All supported image and video formats can be found in the table below:
+
 | identifier | type  | mime type                 |
 |:----------:|:-----:|:--------------------------|
 |    jpg     | image | image/jpeg                |
