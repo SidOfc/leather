@@ -61,11 +61,11 @@ export function attributes(file) {
     let insideAttr = false;
 
     while (stream.more()) {
-        const byte = stream.takeByte();
+        const byte = stream.take()[0];
 
         if (byte === 0x3c) {
             // found potential opening tag "<" character
-            const nextByte = stream.takeByte();
+            const nextByte = stream.take()[0];
 
             if (nextByte === 0x73 || nextByte === 0x53) {
                 // next byte is either "s" or "S", assume
@@ -79,7 +79,7 @@ export function attributes(file) {
             continue;
         } else if (byte === 0x5c) {
             // encountered a backslash, ignore next byte
-            stream.takeByte();
+            stream.take();
         } else if (byte === 0x22 || byte === 0x27) {
             // encountered single or double quote,
             // assume we are entering an attribute value

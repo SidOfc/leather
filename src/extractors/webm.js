@@ -6,11 +6,11 @@ export function attributes(file) {
     const startIndex = stream.indexOf(Buffer.from([0xb0]));
 
     if (startIndex !== -1) {
-        const widthSize = stream.skip(startIndex + 1).takeByte() & 0x7;
-        result.width = parseInt(stream.takeHex(widthSize), 16);
+        const widthSize = stream.skip(startIndex + 1).take()[0] & 0x7;
+        result.width = stream.takeUIntBE(widthSize);
 
-        const heightSize = stream.skip(1).takeByte() & 0x7;
-        result.height = parseInt(stream.takeHex(heightSize), 16);
+        const heightSize = stream.skip(1).take()[0] & 0x7;
+        result.height = stream.takeUIntBE(heightSize);
     }
 
     stream.close();

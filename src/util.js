@@ -100,16 +100,16 @@ export function lazystream(file) {
             return buffer;
         },
 
-        takeByte() {
-            return methods.take()[0];
-        },
-
-        takeHex(bytes) {
-            return methods.take(bytes).toString('hex');
-        },
-
         takeUInt8() {
             return methods.take().readUInt8();
+        },
+
+        takeUIntLE(bytes) {
+            return methods.take(bytes).readUIntLE(0, bytes);
+        },
+
+        takeUIntBE(bytes) {
+            return methods.take(bytes).readUIntBE(0, bytes);
         },
 
         takeUInt16BE() {
@@ -140,7 +140,7 @@ export function lazystream(file) {
             const currentPosition = position;
 
             while (methods.more()) {
-                const byte = methods.takeByte();
+                const byte = methods.take()[0];
 
                 if (byte === buffer[0]) {
                     const rest = methods.take(buffer.length - 1);
@@ -165,7 +165,7 @@ export function lazystream(file) {
         },
     };
 
-    const firstBytes = methods.takeHex(5);
+    const firstBytes = methods.take(5).toString('hex');
     methods.rewind();
 
     for (const key in BYTE_IDENTIFIERS) {
