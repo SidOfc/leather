@@ -87,12 +87,6 @@ test('mkv', (t) =>
 
 test('avi', (t) =>
     t.like(
-        {
-            width: 2,
-            height: 4,
-            size: 6512,
-            duration: 0.1,
-            mime: 'video/x-msvideo',
-        },
+        {width: 2, height: 4, size: 6512, mime: 'video/x-msvideo'},
         attributes('test/files/example.avi')
     ));
