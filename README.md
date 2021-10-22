@@ -123,9 +123,9 @@ All supported image and video formats can be found in the table below:
 |    mp4     | video | video/mp4                 |
 |    webm    | video | video/webm                |
 
-# Credits
+# Credits and other resources that saved my soul
 
-A lot of the image dimension extraction is based on
-[`image-size`](https://www.npmjs.com/package/image-size) with a few
-alterations in some of the extractors.
-
+- https://www.npmjs.com/package/image-size
+- http://www.fastgraph.com/help/avi_header_format.html
+- https://docs.microsoft.com/en-us/previous-versions/ms779632(v=vs.85)
+- https://en.wikipedia.org/wiki/List_of_file_signatures

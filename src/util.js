@@ -128,6 +128,13 @@ export function lazystream(file) {
             return methods.take(4).readUInt32LE();
         },
 
+        takeUInt64LE() {
+            const v1 = methods.takeUInt32LE();
+            const v2 = methods.takeUInt32LE();
+
+            return 0x100000000 * v2 + v1;
+        },
+
         indexOf(buffer) {
             let result = -1;
             const currentPosition = position;
@@ -170,4 +177,10 @@ export function lazystream(file) {
     }
 
     return methods;
+}
+
+export function roundToPrecision(number, precision = 0) {
+    const multiplier = Math.pow(10, precision);
+
+    return Math.round(number * multiplier) / multiplier;
 }
