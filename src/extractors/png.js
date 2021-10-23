@@ -2,7 +2,7 @@ import {lazystream} from '../util';
 
 export function attributes(input) {
     const stream = lazystream(input);
-    const result = {width: 0, height: 0, ...stream.attrs()};
+    const result = {...stream.attrs(), width: 0, height: 0};
     const startIndex = stream.indexOf(Buffer.from('IHDR'));
 
     if (startIndex !== -1) {

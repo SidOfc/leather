@@ -100,7 +100,7 @@ export function attributes(input) {
     const data = Buffer.from(bytes).toString();
     const width = extractWidth(data);
     const height = extractHeight(data);
-    const result = {width: 0, height: 0, ...stream.attrs()};
+    const result = {...stream.attrs(), width: 0, height: 0};
 
     stream.close();
 
