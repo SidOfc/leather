@@ -109,6 +109,7 @@ All supported image and video formats can be found in the table below:
 | identifier | type  | mime type                 |
 |:----------:|:-----:|:--------------------------|
 |    jpg     | image | image/jpeg                |
+|    j2c     | image | image/x-jp2-codestream    |
 |    png     | image | image/png                 |
 |    gif     | image | image/gif                 |
 |    bmp     | image | image/bmp                 |

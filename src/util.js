@@ -3,6 +3,7 @@ import fs from 'fs';
 const BYTE_IDENTIFIERS = {
     ['424d']: 'bmp',
     ['ffd8']: 'jpg',
+    ['0000000c']: 'j2c',
     ['44445320']: 'dds',
     ['89504e47']: 'png',
     ['47494638']: 'gif',
@@ -28,6 +29,7 @@ const BYTE_IDENTIFIERS = {
 const MIME_TYPES = {
     bmp: 'image/bmp',
     jpg: 'image/jpeg',
+    j2c: 'image/x-jp2-codestream',
     dds: 'image/vnd.ms-dds',
     png: 'image/png',
     gif: 'image/gif',

@@ -7,6 +7,12 @@ test('jpg', (t) =>
         attributes('test/files/example.jpg')
     ));
 
+test('j2c', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 282, mime: 'image/x-jp2-codestream'},
+        attributes('test/files/example.j2c')
+    ));
+
 test('png', (t) =>
     t.like(
         {width: 1, height: 2, size: 550, mime: 'image/png'},

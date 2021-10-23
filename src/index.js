@@ -1,5 +1,6 @@
 import {lazystream} from './util';
 import {attributes as jpg} from './extractors/jpg';
+import {attributes as j2c} from './extractors/j2c';
 import {attributes as png} from './extractors/png';
 import {attributes as gif} from './extractors/gif';
 import {attributes as bmp} from './extractors/bmp';
@@ -28,6 +29,7 @@ import {attributes as webm} from './extractors/webm';
 const extractors = {
     bmp,
     jpg,
+    j2c,
     dds,
     png,
     gif,
