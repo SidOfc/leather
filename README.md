@@ -5,24 +5,26 @@
 [![Issues](https://img.shields.io/github/issues/SidOfc/leather.svg)](https://github.com/SidOfc/leather/issues)
 [![Build Status](https://circleci.com/gh/SidOfc/leather.svg?style=shield)](https://app.circleci.com/pipelines/github/SidOfc/leather)
 
-Have you ever wished for the ability to retrieve image or video file dimensions
-in Node without having to resort to external libraries such as `ffprobe`?
+Have you ever wished for the ability to retrieve image or video file attributes
+such as _width_, _height_, _size_, and _mime type_ in Node without having
+to resort to external libraries such as `ffprobe`?
 
-Yeah, **me too!** Unfortunately no one has actually written such a package.
+Yeah, **me too!** This is why `leather` was created.
 At the moment, the only package that does something similar is
 [`image-size`](https://www.npmjs.com/package/image-size)
 and while it does work well, it does not handle video formats.
 
-Enter `leather`, an attempt to extract dimensions from both image and
-video files!
-
 # How
 
-`leather` reads image and video files one byte at a time and as soon
-as dimensions have been extracted, the file will be closed. Some file
-formats have a well-defined fixed position in which these dimensions
+`leather` uses streams to read image and video files in byte-sized chunks.
+As soon attributes have been extracted, the stream will be closed. Some file
+formats have a well-defined fixed position in which these attributes
 can be found, in those cases, `leather` skips any bytes before that
-position and reads the dimensions directly.
+position and reads only the bytes needed to extract attributes directly.
+
+However, sometimes the byte offset of these attributes may vary, in these
+scenarios `leather` makes a best-effort attempt to read as few bytes as
+possible to get to the good stuff!
 
 # Why
 

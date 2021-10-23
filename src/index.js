@@ -48,7 +48,7 @@ const extractors = {
 
 export function attributes(file) {
     const stream = lazystream(file);
-    const result = {...stream.attrs(), height: 0, width: 0};
+    const result = {...stream.attrs(), width: 0, height: 0};
     const extract = extractors[stream.identifier()];
 
     if (extract) Object.assign(result, extract(stream));
