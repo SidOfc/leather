@@ -13,6 +13,12 @@ test('j2c', (t) =>
         attributes('test/files/example.j2c')
     ));
 
+test('jp2', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 282, mime: 'image/jp2'},
+        attributes('test/files/example.jp2')
+    ));
+
 test('png', (t) =>
     t.like(
         {width: 1, height: 2, size: 550, mime: 'image/png'},

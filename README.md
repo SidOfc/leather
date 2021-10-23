@@ -110,6 +110,7 @@ All supported image and video formats can be found in the table below:
 |:----------:|:-----:|:--------------------------|
 |    jpg     | image | image/jpeg                |
 |    j2c     | image | image/x-jp2-codestream    |
+|    jp2     | image | image/jp2                 |
 |    png     | image | image/png                 |
 |    gif     | image | image/gif                 |
 |    bmp     | image | image/bmp                 |

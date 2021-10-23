@@ -1,7 +1,7 @@
 import {lazystream} from '../util';
 
-export function attributes(file) {
-    const stream = lazystream(file);
+export function attributes(input) {
+    const stream = lazystream(input);
     const startIndex = stream.indexOf(Buffer.from('tkhd'));
     const result = {width: 0, height: 0, ...stream.attrs()};
 

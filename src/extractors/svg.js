@@ -54,8 +54,8 @@ function extractViewbox(data) {
     return {width: 0, height: 0, ratio: 1};
 }
 
-export function attributes(file) {
-    const stream = lazystream(file);
+export function attributes(input) {
+    const stream = lazystream(input);
     const bytes = [];
     let startIndex = null;
     let insideAttr = false;

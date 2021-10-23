@@ -1,7 +1,7 @@
 import {lazystream} from '../util';
 
-export function attributes(file) {
-    const stream = lazystream(file);
+export function attributes(input) {
+    const stream = lazystream(input);
     const height = stream.skip(14).takeUInt32BE();
     const width = stream.takeUInt32BE();
     const result = {width, height, ...stream.attrs()};

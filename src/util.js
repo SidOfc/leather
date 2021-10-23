@@ -3,7 +3,6 @@ import fs from 'fs';
 const BYTE_IDENTIFIERS = {
     ['424d']: 'bmp',
     ['ffd8']: 'jpg',
-    ['0000000c']: 'j2c',
     ['44445320']: 'dds',
     ['89504e47']: 'png',
     ['47494638']: 'gif',
@@ -11,9 +10,18 @@ const BYTE_IDENTIFIERS = {
     ['52494646']: 'avi',
     ['4f676753']: 'ogv',
     ['00000020']: 'mp4',
+    ['1a45dfa3a3']: 'mkv',
+
+    // j2c and jp2 are virtually identical, when the stream
+    // is set up, an explicit file extension check is done
+    // to determine the correct mime type and extractor
+    ['0000000c']: 'j2c',
+
+    // there seem to be some different file signatures
+    // for webm files so both need to be matched
     ['1a45dfa301']: 'webm',
     ['1a45dfa39f']: 'webm',
-    ['1a45dfa3a3']: 'mkv',
+
     // ico and cur files have similar byte layouts
     // so we can use the same converter for both
     ['00000100']: 'ico', // ico starts with 000001
@@ -30,6 +38,7 @@ const MIME_TYPES = {
     bmp: 'image/bmp',
     jpg: 'image/jpeg',
     j2c: 'image/x-jp2-codestream',
+    jp2: 'image/jp2',
     dds: 'image/vnd.ms-dds',
     png: 'image/png',
     gif: 'image/gif',
@@ -51,6 +60,7 @@ export function lazystream(file) {
     let closed = false;
     let identifier = null;
     const fd = fs.openSync(file, 'r');
+    const ext = (file.split('.').pop() || '').toLowerCase();
     const {size} = fs.fstatSync(fd);
     const methods = {
         _lazystream: true,
@@ -167,12 +177,13 @@ export function lazystream(file) {
         },
     };
 
-    const firstBytes = methods.take(5).toString('hex');
+    const magicBytes = methods.take(5).toString('hex');
     methods.rewind();
 
     for (const key in BYTE_IDENTIFIERS) {
-        if (firstBytes.startsWith(key)) {
-            identifier = BYTE_IDENTIFIERS[key];
+        if (magicBytes.startsWith(key)) {
+            const byteId = BYTE_IDENTIFIERS[key];
+            identifier = byteId === 'j2c' && ext === 'jp2' ? 'jp2' : byteId;
 
             break;
         }
