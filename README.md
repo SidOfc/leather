@@ -114,22 +114,25 @@ All supported image and video formats can be found in the table below:
 
 | identifier | type  | mime type                 |
 |:----------:|:-----:|:--------------------------|
-|    jpg     | image | image/jpeg                |
+|    bmp     | image | image/bmp                 |
+|    cur     | image | image/x-icon              |
+|    dds     | image | image/vnd.ms-dds          |
+|    gif     | image | image/gif                 |
+|    icns    | image | image/x-icns              |
+|    ico     | image | image/x-icon              |
 |    j2c     | image | image/x-jp2-codestream    |
 |    jp2     | image | image/jp2                 |
+|    jpg     | image | image/jpeg                |
+|    ktx     | image | image/ktx                 |
 |    png     | image | image/png                 |
-|    gif     | image | image/gif                 |
-|    bmp     | image | image/bmp                 |
-|    dds     | image | image/vnd.ms-dds          |
 |    psd     | image | image/vnd.adobe.photoshop |
 |    svg     | image | image/svg+xml             |
-|    ico     | image | image/x-icon              |
-|    cur     | image | image/x-icon              |
 |    tiff    | image | image/tiff                |
+|    webp    | image | image/webp                |
 |    avi     | video | video/x-msvideo           |
-|    ogv     | video | video/ogg                 |
 |    mkv     | video | video/x-matroska          |
 |    mp4     | video | video/mp4                 |
+|    ogv     | video | video/ogg                 |
 |    webm    | video | video/webm                |
 
 # Changelog
