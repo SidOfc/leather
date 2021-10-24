@@ -25,6 +25,12 @@ test('png', (t) =>
         attributes('test/files/example.png')
     ));
 
+test('png (fried)', (t) =>
+    t.like(
+        {width: 128, height: 68, size: 3099, mime: 'image/png'},
+        attributes('test/files/example.fried.png')
+    ));
+
 test('svg', (t) =>
     t.like(
         {width: 1, height: 2, size: 377, mime: 'image/svg+xml'},

@@ -3,10 +3,13 @@ import {lazystream} from '../util';
 export function attributes(input) {
     const stream = lazystream(input);
     const result = {...stream.attrs(), width: 0, height: 0};
-    const startIndex = stream.indexOf(Buffer.from('IHDR'));
+    const isFried = stream.skip(12).take(4).toString('ascii') === 'CgBI';
 
-    if (startIndex !== -1) {
-        result.width = stream.goto(startIndex).skip(4).takeUInt32BE();
+    if (isFried) {
+        result.width = stream.skip(16).takeUInt32BE();
+        result.height = stream.takeUInt32BE();
+    } else {
+        result.width = stream.takeUInt32BE();
         result.height = stream.takeUInt32BE();
     }
 
