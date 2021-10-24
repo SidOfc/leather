@@ -73,6 +73,24 @@ test('ktx', (t) =>
         attributes('test/files/example.ktx')
     ));
 
+test('webp', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 44, mime: 'image/webp'},
+        attributes('test/files/example.webp')
+    ));
+
+test('webp (lossless)', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 38, mime: 'image/webp'},
+        attributes('test/files/example.lossless.webp')
+    ));
+
+test('webp (extended)', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 2256, mime: 'image/webp'},
+        attributes('test/files/example.extended.webp')
+    ));
+
 test('webm', (t) =>
     t.like(
         {width: 2, height: 4, size: 765, mime: 'video/webm'},

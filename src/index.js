@@ -12,6 +12,7 @@ import {attributes as png} from './extractors/png';
 import {attributes as psd} from './extractors/psd';
 import {attributes as svg} from './extractors/svg';
 import {attributes as tiff} from './extractors/tiff';
+import {attributes as webp} from './extractors/webp';
 import {attributes as avi} from './extractors/avi';
 import {attributes as ogv} from './extractors/ogv';
 import {attributes as mp4} from './extractors/mp4';
@@ -43,6 +44,7 @@ const extractors = {
     psd,
     svg,
     tiff,
+    webp,
     avi,
     ogv,
     mp4,

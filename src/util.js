@@ -1,57 +1,38 @@
 import fs from 'fs';
 
-const BYTE_IDENTIFIERS = {
-    ['424d']: 'bmp',
-    ['00000200']: 'cur',
-    ['44445320']: 'dds',
-    ['47494638']: 'gif',
-    ['00000100']: 'ico',
-    ['0000000c']: 'j2c',
-    ['ffd8']: 'jpg',
-    ['ab4b5458']: 'ktx',
-    ['89504e47']: 'png',
-    ['38425053']: 'psd',
-    ['3c3f786d']: 'svg',
-    ['3c3f584d']: 'svg',
-    ['3c737667']: 'svg',
-    ['3c535647']: 'svg',
-    ['49492a00']: 'tiff',
-    ['4d4d002a']: 'tiff',
-    ['52494646']: 'avi',
-    ['1a45dfa3a3']: 'mkv',
-    ['00000020']: 'mp4',
-    ['4f676753']: 'ogv',
-    ['1a45dfa301']: 'webm',
-    ['1a45dfa39f']: 'webm',
-};
-
-const MIME_TYPES = {
-    bmp: 'image/bmp',
-    cur: 'image/x-icon',
-    dds: 'image/vnd.ms-dds',
-    gif: 'image/gif',
-    ico: 'image/x-icon',
-    j2c: 'image/x-jp2-codestream',
-    jp2: 'image/jp2',
-    jpg: 'image/jpeg',
-    ktx: 'image/ktx',
-    png: 'image/png',
-    psd: 'image/vnd.adobe.photoshop',
-    svg: 'image/svg+xml',
-    tiff: 'image/tiff',
-    avi: 'video/x-msvideo',
-    mkv: 'video/x-matroska',
-    mp4: 'video/mp4',
-    ogv: 'video/ogg',
-    webm: 'video/webm',
-};
+const BYTE_INFO = new Map();
+// prettier-ignore
+{
+    BYTE_INFO.set(/^424d/i,     {id: 'bmp',  mime: 'image/bmp'});
+    BYTE_INFO.set(/^00000200/i, {id: 'cur',  mime: 'image/x-icon'});
+    BYTE_INFO.set(/^44445320/i, {id: 'dds',  mime: 'image/vnd.ms-dds'});
+    BYTE_INFO.set(/^47494638/i, {id: 'gif',  mime: 'image/gif'});
+    BYTE_INFO.set(/^00000100/i, {id: 'ico',  mime: 'image/x-icon'});
+    BYTE_INFO.set(/^0000000c/i, {id: 'j2c',  mime: 'image/x-jp2-codestream'});
+    BYTE_INFO.set(/^ffd8/i,     {id: 'jpg',  mime: 'image/jpeg'});
+    BYTE_INFO.set(/^ab4b5458/i, {id: 'ktx',  mime: 'image/ktx'});
+    BYTE_INFO.set(/^89504e47/i, {id: 'png',  mime: 'image/png'});
+    BYTE_INFO.set(/^38425053/i, {id: 'psd',  mime: 'image/vnd.adobe.photoshop'});
+    BYTE_INFO.set(
+        /^3c(?:3f[57]8[46]d|[57]3[57]6[46]7)/i,
+        {id: 'svg',  mime: 'image/svg+xml'}
+    );
+    BYTE_INFO.set(/^(?:49492a00|4d4d002a)/i, {id: 'tiff', mime: 'image/tiff'});
+    BYTE_INFO.set(/^52494646.{8}57454250/i,  {id: 'webp', mime: 'image/webp'});
+    BYTE_INFO.set(/^52494646/i,              {id: 'avi',  mime: 'video/x-msvideo'});
+    BYTE_INFO.set(/^1a45dfa3a3/i,            {id: 'mkv',  mime: 'video/x-matroska'});
+    BYTE_INFO.set(/^00000020/i,              {id: 'mp4',  mime: 'video/mp4'});
+    BYTE_INFO.set(/^4f676753/i,              {id: 'ogv',  mime: 'video/ogg'});
+    BYTE_INFO.set(/^1a45dfa3(?:01|9f)/i,     {id: 'webm', mime: 'video/webm'});
+}
 
 export function lazystream(file) {
     if (file && file._lazystream) return file;
 
     let position = 0;
     let closed = false;
-    let identifier = null;
+    let identifier;
+    let mime;
     const fd = fs.openSync(file, 'r');
     const ext = (file.split('.').pop() || '').toLowerCase();
     const {size} = fs.fstatSync(fd);
@@ -96,7 +77,7 @@ export function lazystream(file) {
         },
 
         mime() {
-            return MIME_TYPES[identifier];
+            return mime;
         },
 
         attrs() {
@@ -115,12 +96,12 @@ export function lazystream(file) {
             return methods.take().readUInt8();
         },
 
-        takeUIntLE(bytes) {
-            return methods.take(bytes).readUIntLE(0, bytes);
-        },
-
         takeUIntBE(bytes) {
             return methods.take(bytes).readUIntBE(0, bytes);
+        },
+
+        takeUIntLE(bytes) {
+            return methods.take(bytes).readUIntLE(0, bytes);
         },
 
         takeUInt16BE() {
@@ -176,13 +157,18 @@ export function lazystream(file) {
         },
     };
 
-    const magicBytes = methods.take(5).toString('hex');
+    const magicBytes = methods.take(12).toString('hex');
     methods.rewind();
 
-    for (const key in BYTE_IDENTIFIERS) {
-        if (magicBytes.startsWith(key)) {
-            const byteId = BYTE_IDENTIFIERS[key];
-            identifier = byteId === 'j2c' && ext === 'jp2' ? 'jp2' : byteId;
+    for (const [bytes, info] of BYTE_INFO) {
+        if (magicBytes.match(bytes)) {
+            if (info.id === 'j2c' && ext === 'jp2') {
+                identifier = 'jp2';
+                mime = 'image/jp2';
+            } else {
+                identifier = info.id;
+                mime = info.mime;
+            }
 
             break;
         }
