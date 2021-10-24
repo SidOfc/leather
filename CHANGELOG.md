@@ -2,6 +2,10 @@
 
 All dates are in **DD-MM-YYYY** format.
 
+# 24-10-2021 VERSION 1.3.1
+
+- Fix: `png` extractor uses less reads
+
 # 24-10-2021 VERSION 1.3.0
 
 - Add: `ktx` support
