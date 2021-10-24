@@ -121,11 +121,16 @@ All supported image and video formats can be found in the table below:
 |    svg     | image | image/svg+xml             |
 |    ico     | image | image/x-icon              |
 |    cur     | image | image/x-icon              |
+|    tiff    | image | image/tiff                |
 |    avi     | video | video/x-msvideo           |
 |    ogv     | video | video/ogg                 |
 |    mkv     | video | video/x-matroska          |
 |    mp4     | video | video/mp4                 |
 |    webm    | video | video/webm                |
+
+# Changelog
+
+[View the changelog here.](CHANGELOG.md)
 
 # Credits and other resources that saved my soul
 
@@ -133,3 +138,4 @@ All supported image and video formats can be found in the table below:
 - http://www.fastgraph.com/help/avi_header_format.html
 - https://docs.microsoft.com/en-us/previous-versions/ms779632(v=vs.85)
 - https://en.wikipedia.org/wiki/List_of_file_signatures
+- https://www.fileformat.info/format/tiff/egff.htm#TIFF.FO
