@@ -37,6 +37,12 @@ While I love `ffprobe` for its capabilities, setting up a cross-platform
 package requires some configuration. This package aims to solve that
 by steering clear of any command-line tools which makes it more portable.
 
+# Node support
+
+Node version 12.20 and up are supported. This plugin supports `cjs`
+as well as `esm` through the [`exports`](https://nodejs.org/api/packages.html#exports)
+field in `package.json`.
+
 # Installation
 
 Install the package locally using [`npm`](https://www.npmjs.com/):
