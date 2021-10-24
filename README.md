@@ -39,9 +39,7 @@ by steering clear of any command-line tools which makes it more portable.
 
 # Node support
 
-Node version 12.20 and up are supported. This plugin supports `cjs`
-as well as `esm` through the [`exports`](https://nodejs.org/api/packages.html#exports)
-field in `package.json`.
+Node version 12.20 and up are supported.
 
 # Installation
 
