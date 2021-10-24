@@ -2,6 +2,11 @@
 
 All dates are in **DD-MM-YYYY** format.
 
+# 24-10-2021 VERSION 1.4.0
+
+- Add: `fli` support
+- Add: `flc` support
+
 # 24-10-2021 VERSION 1.3.1
 
 - Fix: `png` extractor uses less reads
