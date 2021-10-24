@@ -67,6 +67,12 @@ test('dds', (t) =>
         attributes('test/files/example.dds')
     ));
 
+test('ktx', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 104, mime: 'image/ktx'},
+        attributes('test/files/example.ktx')
+    ));
+
 test('webm', (t) =>
     t.like(
         {width: 2, height: 4, size: 765, mime: 'video/webm'},

@@ -2,60 +2,48 @@ import fs from 'fs';
 
 const BYTE_IDENTIFIERS = {
     ['424d']: 'bmp',
-    ['ffd8']: 'jpg',
+    ['00000200']: 'cur',
     ['44445320']: 'dds',
-    ['89504e47']: 'png',
     ['47494638']: 'gif',
+    ['00000100']: 'ico',
+    ['0000000c']: 'j2c',
+    ['ffd8']: 'jpg',
+    ['ab4b5458']: 'ktx',
+    ['89504e47']: 'png',
     ['38425053']: 'psd',
-    ['52494646']: 'avi',
-    ['4f676753']: 'ogv',
-    ['00000020']: 'mp4',
-    ['1a45dfa3a3']: 'mkv',
-
-    // little endian and big endian tiff respectively
+    ['3c3f786d']: 'svg',
+    ['3c3f584d']: 'svg',
+    ['3c737667']: 'svg',
+    ['3c535647']: 'svg',
     ['49492a00']: 'tiff',
     ['4d4d002a']: 'tiff',
-
-    // j2c and jp2 are virtually identical, when the stream
-    // is set up, an explicit file extension check is done
-    // to determine the correct mime type and extractor
-    ['0000000c']: 'j2c',
-
-    // there seem to be some different file signatures
-    // for webm files so both need to be matched
+    ['52494646']: 'avi',
+    ['1a45dfa3a3']: 'mkv',
+    ['00000020']: 'mp4',
+    ['4f676753']: 'ogv',
     ['1a45dfa301']: 'webm',
     ['1a45dfa39f']: 'webm',
-
-    // ico and cur files have similar byte layouts
-    // so we can use the same converter for both
-    ['00000100']: 'ico', // ico starts with 000001
-    ['00000200']: 'cur', // cur starts with 000002
-
-    // svg can start with "<?xm", "<?XM", "<svg", or "<SVG"
-    ['3c3f786d']: 'svg', // match initial bytes: <?xm
-    ['3c3f584d']: 'svg', // match initial bytes: <?XM
-    ['3c737667']: 'svg', // match initial bytes: <svg
-    ['3c535647']: 'svg', // match initial bytes: <SVG
 };
 
 const MIME_TYPES = {
     bmp: 'image/bmp',
-    jpg: 'image/jpeg',
+    cur: 'image/x-icon',
+    dds: 'image/vnd.ms-dds',
+    gif: 'image/gif',
+    ico: 'image/x-icon',
     j2c: 'image/x-jp2-codestream',
     jp2: 'image/jp2',
-    dds: 'image/vnd.ms-dds',
+    jpg: 'image/jpeg',
+    ktx: 'image/ktx',
     png: 'image/png',
-    gif: 'image/gif',
-    svg: 'image/svg+xml',
     psd: 'image/vnd.adobe.photoshop',
-    ico: 'image/x-icon',
-    cur: 'image/x-icon',
+    svg: 'image/svg+xml',
     tiff: 'image/tiff',
     avi: 'video/x-msvideo',
-    ogv: 'video/ogg',
-    mp4: 'video/mp4',
-    webm: 'video/webm',
     mkv: 'video/x-matroska',
+    mp4: 'video/mp4',
+    ogv: 'video/ogg',
+    webm: 'video/webm',
 };
 
 export function lazystream(file) {

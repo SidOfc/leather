@@ -1,13 +1,14 @@
 import {lazystream} from './util';
-import {attributes as jpg} from './extractors/jpg';
-import {attributes as j2c} from './extractors/j2c';
-import {attributes as jp2} from './extractors/jp2';
-import {attributes as png} from './extractors/png';
-import {attributes as gif} from './extractors/gif';
 import {attributes as bmp} from './extractors/bmp';
-import {attributes as ico} from './extractors/ico';
 import {attributes as cur} from './extractors/cur';
 import {attributes as dds} from './extractors/dds';
+import {attributes as gif} from './extractors/gif';
+import {attributes as ico} from './extractors/ico';
+import {attributes as j2c} from './extractors/j2c';
+import {attributes as jp2} from './extractors/jp2';
+import {attributes as jpg} from './extractors/jpg';
+import {attributes as ktx} from './extractors/ktx';
+import {attributes as png} from './extractors/png';
 import {attributes as psd} from './extractors/psd';
 import {attributes as svg} from './extractors/svg';
 import {attributes as tiff} from './extractors/tiff';
@@ -30,15 +31,16 @@ import {attributes as webm} from './extractors/webm';
 // extractor mapping table based on `lazystream(file).identifier()`
 const extractors = {
     bmp,
-    jpg,
+    cur,
+    dds,
+    gif,
+    ico,
     j2c,
     jp2,
-    dds,
+    jpg,
+    ktx,
     png,
-    gif,
     psd,
-    ico,
-    cur,
     svg,
     tiff,
     avi,
