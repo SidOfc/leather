@@ -6,7 +6,7 @@ export function attributes(input) {
     const startIndex = stream.indexOf(Buffer.from('tkhd'));
 
     if (startIndex !== -1) {
-        result.width = stream.skip(startIndex + 78).takeUInt32BE();
+        result.width = stream.goto(startIndex).skip(78).takeUInt32BE();
         result.height = stream.takeUInt32BE();
     }
 

@@ -10,6 +10,7 @@ import {attributes as cur} from './extractors/cur';
 import {attributes as dds} from './extractors/dds';
 import {attributes as psd} from './extractors/psd';
 import {attributes as svg} from './extractors/svg';
+import {attributes as tiff} from './extractors/tiff';
 import {attributes as avi} from './extractors/avi';
 import {attributes as ogv} from './extractors/ogv';
 import {attributes as mp4} from './extractors/mp4';
@@ -39,11 +40,12 @@ const extractors = {
     ico,
     cur,
     svg,
+    tiff,
     avi,
     ogv,
     mp4,
-    webm,
     mkv,
+    webm,
 };
 
 export function attributes(file) {

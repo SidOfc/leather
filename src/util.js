@@ -12,6 +12,10 @@ const BYTE_IDENTIFIERS = {
     ['00000020']: 'mp4',
     ['1a45dfa3a3']: 'mkv',
 
+    // little endian and big endian tiff respectively
+    ['49492a00']: 'tiff',
+    ['4d4d002a']: 'tiff',
+
     // j2c and jp2 are virtually identical, when the stream
     // is set up, an explicit file extension check is done
     // to determine the correct mime type and extractor
@@ -46,6 +50,7 @@ const MIME_TYPES = {
     psd: 'image/vnd.adobe.photoshop',
     ico: 'image/x-icon',
     cur: 'image/x-icon',
+    tiff: 'image/tiff',
     avi: 'video/x-msvideo',
     ogv: 'video/ogg',
     mp4: 'video/mp4',
@@ -80,6 +85,12 @@ export function lazystream(file) {
 
         position() {
             return position;
+        },
+
+        goto(offset) {
+            position = offset;
+
+            return methods;
         },
 
         more() {

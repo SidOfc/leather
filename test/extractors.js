@@ -79,6 +79,18 @@ test('webm (alternate)', (t) =>
         attributes('test/files/example.alternate.webm')
     ));
 
+test('tiff (little endian)', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 222, mime: 'image/tiff'},
+        attributes('test/files/example.tiff')
+    ));
+
+test('tiff (big endian)', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 314, mime: 'image/tiff'},
+        attributes('test/files/example.be.tiff')
+    ));
+
 test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},
