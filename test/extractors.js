@@ -150,3 +150,15 @@ test('avi', (t) =>
         {width: 2, height: 4, size: 6512, mime: 'video/x-msvideo'},
         attributes('test/files/example.avi')
     ));
+
+test('fli', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 934, mime: 'video/x-flic'},
+        attributes('test/files/example.fli')
+    ));
+
+test('flc', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 934, mime: 'video/x-flic'},
+        attributes('test/files/example.flc')
+    ));

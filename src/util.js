@@ -21,11 +21,17 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^(?:49492a00|4d4d002a)/i, {id: 'tiff', mime: 'image/tiff'});
     BYTE_INFO.set(/^52494646.{8}57454250/i,  {id: 'webp', mime: 'image/webp'});
     BYTE_INFO.set(/^52494646/i,              {id: 'avi',  mime: 'video/x-msvideo'});
+    BYTE_INFO.set(/^.{8}1[12]af/i,           {id: 'fli',  mime: 'video/x-flic'});
     BYTE_INFO.set(/^1a45dfa3a3/i,            {id: 'mkv',  mime: 'video/x-matroska'});
     BYTE_INFO.set(/^00000020/i,              {id: 'mp4',  mime: 'video/mp4'});
     BYTE_INFO.set(/^4f676753/i,              {id: 'ogv',  mime: 'video/ogg'});
     BYTE_INFO.set(/^1a45dfa3(?:01|9f)/i,     {id: 'webm', mime: 'video/webm'});
 }
+
+const BYTE_ALIASES = {
+    'j2c.jp2': {id: 'jp2', mime: 'image/jp2'},
+    'fli.flc': {id: 'flc', mime: 'video/x-flic'},
+};
 
 export function lazystream(file) {
     if (file && file._lazystream) return file;
@@ -163,13 +169,9 @@ export function lazystream(file) {
 
     for (const [bytes, info] of BYTE_INFO) {
         if (magicBytes.match(bytes)) {
-            if (info.id === 'j2c' && ext === 'jp2') {
-                identifier = 'jp2';
-                mime = 'image/jp2';
-            } else {
-                identifier = info.id;
-                mime = info.mime;
-            }
+            const data = BYTE_ALIASES[`${info.id}.${ext}`] || info;
+            identifier = data.id;
+            mime = data.mime;
 
             break;
         }

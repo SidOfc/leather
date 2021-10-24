@@ -130,6 +130,8 @@ All supported image and video formats can be found in the table below:
 |    tiff    | image | image/tiff                |
 |    webp    | image | image/webp                |
 |    avi     | video | video/x-msvideo           |
+|    fli     | video | video/x-flic              |
+|    flc     | video | video/x-flic              |
 |    mkv     | video | video/x-matroska          |
 |    mp4     | video | video/mp4                 |
 |    ogv     | video | video/ogg                 |

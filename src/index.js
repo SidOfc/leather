@@ -15,6 +15,8 @@ import {attributes as svg} from './extractors/svg';
 import {attributes as tiff} from './extractors/tiff';
 import {attributes as webp} from './extractors/webp';
 import {attributes as avi} from './extractors/avi';
+import {attributes as fli} from './extractors/fli';
+import {attributes as flc} from './extractors/flc';
 import {attributes as ogv} from './extractors/ogv';
 import {attributes as mp4} from './extractors/mp4';
 import {attributes as mkv} from './extractors/mkv';
@@ -48,6 +50,8 @@ const extractors = {
     tiff,
     webp,
     avi,
+    fli,
+    flc,
     ogv,
     mp4,
     mkv,
