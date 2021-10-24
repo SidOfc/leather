@@ -9,6 +9,7 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^47494638/i, {id: 'gif',  mime: 'image/gif'});
     BYTE_INFO.set(/^00000100/i, {id: 'ico',  mime: 'image/x-icon'});
     BYTE_INFO.set(/^0000000c/i, {id: 'j2c',  mime: 'image/x-jp2-codestream'});
+    BYTE_INFO.set(/^69636e73/i, {id: 'icns', mime: 'image/x-icns'});
     BYTE_INFO.set(/^ffd8/i,     {id: 'jpg',  mime: 'image/jpeg'});
     BYTE_INFO.set(/^ab4b5458/i, {id: 'ktx',  mime: 'image/ktx'});
     BYTE_INFO.set(/^89504e47/i, {id: 'png',  mime: 'image/png'});

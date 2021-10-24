@@ -3,6 +3,7 @@ import {attributes as bmp} from './extractors/bmp';
 import {attributes as cur} from './extractors/cur';
 import {attributes as dds} from './extractors/dds';
 import {attributes as gif} from './extractors/gif';
+import {attributes as icns} from './extractors/icns';
 import {attributes as ico} from './extractors/ico';
 import {attributes as j2c} from './extractors/j2c';
 import {attributes as jp2} from './extractors/jp2';
@@ -35,6 +36,7 @@ const extractors = {
     cur,
     dds,
     gif,
+    icns,
     ico,
     j2c,
     jp2,

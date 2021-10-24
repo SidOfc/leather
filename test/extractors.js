@@ -91,6 +91,12 @@ test('webp (extended)', (t) =>
         attributes('test/files/example.extended.webp')
     ));
 
+test('icns', (t) =>
+    t.like(
+        {width: 16, height: 16, size: 39985, mime: 'image/x-icns'},
+        attributes('test/files/example.icns')
+    ));
+
 test('webm', (t) =>
     t.like(
         {width: 2, height: 4, size: 765, mime: 'video/webm'},

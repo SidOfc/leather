@@ -6,6 +6,8 @@ export function attributes(input) {
         Buffer.compare(stream.take(2), Buffer.from([0x4d, 0x4d])) === 0;
     const attrs = isBigEndian ? attributesBE(stream) : attributesLE(stream);
 
+    stream.close();
+
     return {...stream.attrs(), ...attrs};
 }
 

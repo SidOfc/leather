@@ -20,5 +20,7 @@ export function attributes(input) {
         result.height = stream.takeUInt16LE() & 0x3fff;
     }
 
+    stream.close();
+
     return result;
 }
