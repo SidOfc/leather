@@ -19,16 +19,10 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^52494646.{8}57454250/i,               'webp');
     BYTE_INFO.set(/^52494646/i,                           'avi');
     BYTE_INFO.set(/^.{8}1[12]af/i,                        'fli');
-    BYTE_INFO.set(/^1a45dfa3a3/i,                         'mkv');
     BYTE_INFO.set(/^00000020/i,                           'mp4');
     BYTE_INFO.set(/^4f676753/i,                           'ogv');
-    BYTE_INFO.set(/^1a45dfa3(?:01|9f)/i,                  'webm');
+    BYTE_INFO.set(/^1a45dfa3(?:01|9f|a3)/i,               'webm');
 }
-
-const BYTE_ALIASES = {
-    'j2c.jp2': 'jp2',
-    'fli.flc': 'flc',
-};
 
 export function lazystream(file) {
     if (file && file._lazystream) return file;
@@ -166,7 +160,7 @@ export function lazystream(file) {
 
     for (const [bytes, id] of BYTE_INFO) {
         if (magicBytes.match(bytes)) {
-            identifier = BYTE_ALIASES[`${id}.${ext}`] || id;
+            identifier = id;
 
             break;
         }
