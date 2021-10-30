@@ -3,34 +3,31 @@ import fs from 'fs';
 const BYTE_INFO = new Map();
 // prettier-ignore
 {
-    BYTE_INFO.set(/^424d/i,     {id: 'bmp',  mime: 'image/bmp'});
-    BYTE_INFO.set(/^00000200/i, {id: 'cur',  mime: 'image/x-icon'});
-    BYTE_INFO.set(/^44445320/i, {id: 'dds',  mime: 'image/vnd.ms-dds'});
-    BYTE_INFO.set(/^47494638/i, {id: 'gif',  mime: 'image/gif'});
-    BYTE_INFO.set(/^00000100/i, {id: 'ico',  mime: 'image/x-icon'});
-    BYTE_INFO.set(/^0000000c/i, {id: 'j2c',  mime: 'image/x-jp2-codestream'});
-    BYTE_INFO.set(/^69636e73/i, {id: 'icns', mime: 'image/x-icns'});
-    BYTE_INFO.set(/^ffd8/i,     {id: 'jpg',  mime: 'image/jpeg'});
-    BYTE_INFO.set(/^ab4b5458/i, {id: 'ktx',  mime: 'image/ktx'});
-    BYTE_INFO.set(/^89504e47/i, {id: 'png',  mime: 'image/png'});
-    BYTE_INFO.set(/^38425053/i, {id: 'psd',  mime: 'image/vnd.adobe.photoshop'});
-    BYTE_INFO.set(
-        /^3c(?:3f[57]8[46]d|[57]3[57]6[46]7)/i,
-        {id: 'svg',  mime: 'image/svg+xml'}
-    );
-    BYTE_INFO.set(/^(?:49492a00|4d4d002a)/i, {id: 'tiff', mime: 'image/tiff'});
-    BYTE_INFO.set(/^52494646.{8}57454250/i,  {id: 'webp', mime: 'image/webp'});
-    BYTE_INFO.set(/^52494646/i,              {id: 'avi',  mime: 'video/x-msvideo'});
-    BYTE_INFO.set(/^.{8}1[12]af/i,           {id: 'fli',  mime: 'video/x-flic'});
-    BYTE_INFO.set(/^1a45dfa3a3/i,            {id: 'mkv',  mime: 'video/x-matroska'});
-    BYTE_INFO.set(/^00000020/i,              {id: 'mp4',  mime: 'video/mp4'});
-    BYTE_INFO.set(/^4f676753/i,              {id: 'ogv',  mime: 'video/ogg'});
-    BYTE_INFO.set(/^1a45dfa3(?:01|9f)/i,     {id: 'webm', mime: 'video/webm'});
+    BYTE_INFO.set(/^424d/i,                               'bmp');
+    BYTE_INFO.set(/^00000200/i,                           'cur');
+    BYTE_INFO.set(/^44445320/i,                           'dds');
+    BYTE_INFO.set(/^47494638/i,                           'gif');
+    BYTE_INFO.set(/^00000100/i,                           'ico');
+    BYTE_INFO.set(/^0000000c/i,                           'j2c');
+    BYTE_INFO.set(/^69636e73/i,                           'icns');
+    BYTE_INFO.set(/^ffd8/i,                               'jpg');
+    BYTE_INFO.set(/^ab4b5458/i,                           'ktx');
+    BYTE_INFO.set(/^89504e47/i,                           'png');
+    BYTE_INFO.set(/^38425053/i,                           'psd');
+    BYTE_INFO.set(/^3c(?:3f[57]8[46]d|[57]3[57]6[46]7)/i, 'svg');
+    BYTE_INFO.set(/^(?:49492a00|4d4d002a)/i,              'tiff');
+    BYTE_INFO.set(/^52494646.{8}57454250/i,               'webp');
+    BYTE_INFO.set(/^52494646/i,                           'avi');
+    BYTE_INFO.set(/^.{8}1[12]af/i,                        'fli');
+    BYTE_INFO.set(/^1a45dfa3a3/i,                         'mkv');
+    BYTE_INFO.set(/^00000020/i,                           'mp4');
+    BYTE_INFO.set(/^4f676753/i,                           'ogv');
+    BYTE_INFO.set(/^1a45dfa3(?:01|9f)/i,                  'webm');
 }
 
 const BYTE_ALIASES = {
-    'j2c.jp2': {id: 'jp2', mime: 'image/jp2'},
-    'fli.flc': {id: 'flc', mime: 'video/x-flic'},
+    'j2c.jp2': 'jp2',
+    'fli.flc': 'flc',
 };
 
 export function lazystream(file) {
@@ -167,11 +164,9 @@ export function lazystream(file) {
     const magicBytes = methods.take(12).toString('hex');
     methods.rewind();
 
-    for (const [bytes, info] of BYTE_INFO) {
+    for (const [bytes, id] of BYTE_INFO) {
         if (magicBytes.match(bytes)) {
-            const data = BYTE_ALIASES[`${info.id}.${ext}`] || info;
-            identifier = data.id;
-            mime = data.mime;
+            identifier = BYTE_ALIASES[`${id}.${ext}`] || id;
 
             break;
         }

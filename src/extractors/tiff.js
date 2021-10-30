@@ -5,10 +5,11 @@ export function attributes(input) {
     const isBigEndian =
         Buffer.compare(stream.take(2), Buffer.from([0x4d, 0x4d])) === 0;
     const attrs = isBigEndian ? attributesBE(stream) : attributesLE(stream);
+    const result = {...attrs, size: stream.size(), mime: 'image/tiff'};
 
     stream.close();
 
-    return {...stream.attrs(), ...attrs};
+    return result;
 }
 
 function attributesBE(stream) {

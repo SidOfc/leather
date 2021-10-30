@@ -2,10 +2,15 @@ import {lazystream} from '../util';
 
 export function attributes(input) {
     const stream = lazystream(input);
-    const result = {...stream.attrs(), width: 0, height: 0};
     const header = stream.skip(12).take(4).toString('ascii');
     const isLossless = stream.skip(4).take()[0] === 0x2f;
     const isLossy = stream.skip(2).take(3).toString('hex') === '9d012a';
+    const result = {
+        width: 0,
+        height: 0,
+        size: stream.size(),
+        mime: 'image/webp',
+    };
 
     if (header === 'VP8X') {
         result.width = 1 + stream.goto(24).takeUIntLE(3);
