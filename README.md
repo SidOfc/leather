@@ -145,6 +145,7 @@ All supported image and video formats can be found in the table below:
 
 - https://www.npmjs.com/package/image-size
 - http://www.fastgraph.com/help/avi_header_format.html
+- http://www.fastgraph.com/help/flic_header_format.html
 - https://docs.microsoft.com/en-us/previous-versions/ms779632(v=vs.85)
 - https://en.wikipedia.org/wiki/List_of_file_signatures
 - https://www.fileformat.info/format/tiff/egff.htm#TIFF.FO
