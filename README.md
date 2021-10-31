@@ -137,6 +137,7 @@ All supported image and video formats can be found in the table below:
 | **avi**  | [avi](src/extractors/avi.js)   | video/x-msvideo           |
 | **fli**  | [fli](src/extractors/fli.js)   | video/x-flic              |
 | **flc**  | [fli](src/extractors/fli.js)   | video/x-flic              |
+| **mng**  | [png](src/extractors/png.js)   | video/x-mng               |
 | **mp4**  | [mp4](src/extractors/mp4.js)   | video/mp4                 |
 | **ogv**  | [ogv](src/extractors/ogv.js)   | video/ogg                 |
 | **mkv**  | [webm](src/extractors/webm.js) | video/x-matroska          |

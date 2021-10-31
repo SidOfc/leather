@@ -2,6 +2,12 @@
 
 All dates are in **DD-MM-YYYY** format.
 
+# 01-11-2021 VERSION 1.6.0
+
+- Add: `mng` support
+- Improve: test animated `png`
+- Improve: test animated `webp`
+
 # 31-10-2021 VERSION 1.5.0
 
 - Add: `pnm` support (`pbm`, `pgm`, `ppm`, `pfm`, `pam`)
@@ -13,7 +19,7 @@ All dates are in **DD-MM-YYYY** format.
 
 # 24-10-2021 VERSION 1.3.1
 
-- Fix: `png` extractor uses less reads
+- Improve: `png` extractor uses less reads
 
 # 24-10-2021 VERSION 1.3.0
 

@@ -12,7 +12,7 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^69636e73/i,                           'icns');
     BYTE_INFO.set(/^ffd8/i,                               'jpg');
     BYTE_INFO.set(/^ab4b5458/i,                           'ktx');
-    BYTE_INFO.set(/^89504e47/i,                           'png');
+    BYTE_INFO.set(/^(?:8950|8a4d)4e47/i,                  'png');
     BYTE_INFO.set(/^38425053/i,                           'psd');
     BYTE_INFO.set(/^3c(?:3f[57]8[46]d|[57]3[57]6[46]7)/i, 'svg');
     BYTE_INFO.set(/^(?:49492a00|4d4d002a)/i,              'tiff');

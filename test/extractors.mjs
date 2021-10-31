@@ -25,6 +25,12 @@ test('png', (t) =>
         attributes('test/files/example.png')
     ));
 
+test('apng', (t) =>
+    t.like(
+        {width: 100, height: 100, size: 63435, mime: 'image/png'},
+        attributes('test/files/example.apng')
+    ));
+
 test('png (fried)', (t) =>
     t.like(
         {width: 128, height: 68, size: 3099, mime: 'image/png'},
@@ -83,6 +89,12 @@ test('webp', (t) =>
     t.like(
         {width: 1, height: 2, size: 44, mime: 'image/webp'},
         attributes('test/files/example.webp')
+    ));
+
+test('webp (animated)', (t) =>
+    t.like(
+        {width: 400, height: 400, size: 37342, mime: 'image/webp'},
+        attributes('test/files/example.animated.webp')
     ));
 
 test('webp (lossless)', (t) =>
@@ -209,4 +221,10 @@ test('flc', (t) =>
     t.like(
         {width: 1, height: 2, size: 934, mime: 'video/x-flic'},
         attributes('test/files/example.flc')
+    ));
+
+test('mng', (t) =>
+    t.like(
+        {width: 100, height: 100, size: 5133, mime: 'video/x-mng'},
+        attributes('test/files/example.mng')
     ));
