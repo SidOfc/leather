@@ -22,6 +22,7 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^00000020/i,                           'mp4');
     BYTE_INFO.set(/^4f676753/i,                           'ogv');
     BYTE_INFO.set(/^1a45dfa3(?:01|9f|a3)/i,               'webm');
+    BYTE_INFO.set(/^50(?:3[1-7]|46)/i,                    'pnm');
 }
 
 export function lazystream(file) {
@@ -78,16 +79,41 @@ export function lazystream(file) {
             return mime;
         },
 
-        attrs() {
-            return {size: methods.size(), mime: methods.mime()};
-        },
-
         take(bytes = 1) {
             const buffer = Buffer.alloc(bytes);
             const bytesRead = fs.readSync(fd, buffer, 0, bytes, position);
             position += bytesRead;
 
             return buffer;
+        },
+
+        takeUntil(target) {
+            const bytes = [];
+            const targets = Array.isArray(target) ? target : [target];
+
+            while (methods.more()) {
+                const byte = methods.take()[0];
+
+                if (targets.includes(byte)) break;
+
+                bytes.push(byte);
+            }
+
+            methods.rewind(1);
+
+            return Buffer.from(bytes);
+        },
+
+        skipWhile(target) {
+            const targets = Array.isArray(target) ? target : [target];
+
+            while (methods.more()) {
+                const byte = methods.take()[0];
+
+                if (!targets.includes(byte)) break;
+            }
+
+            return methods.rewind(1);
         },
 
         takeUInt8() {
@@ -133,9 +159,12 @@ export function lazystream(file) {
                 const byte = methods.take()[0];
 
                 if (byte === buffer[0]) {
-                    const rest = methods.take(buffer.length - 1);
-
-                    if (buffer.slice(1).includes(rest)) {
+                    if (
+                        buffer.length === 1 ||
+                        buffer
+                            .slice(1)
+                            .includes(methods.take(buffer.length - 1))
+                    ) {
                         result = position - buffer.length;
 
                         break;
@@ -145,6 +174,23 @@ export function lazystream(file) {
 
             position = currentPosition;
             return result;
+        },
+
+        takeLine() {
+            const idx = methods.indexOf(Buffer.from('\n'));
+            const result = methods.take((idx === -1 ? size : idx) - position);
+
+            methods.skip(1);
+
+            return result[result.length - 1] === 0x0d
+                ? result.slice(0, -1)
+                : result;
+        },
+
+        skipLine() {
+            const idx = methods.indexOf(Buffer.from('\n'));
+
+            return methods.skip((idx === -1 ? size : idx) - position + 1);
         },
 
         close() {

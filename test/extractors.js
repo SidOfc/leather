@@ -103,6 +103,54 @@ test('icns', (t) =>
         attributes('test/files/example.icns')
     ));
 
+test('pfm', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 36, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.pfm')
+    ));
+
+test('pam', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 84, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.pam')
+    ));
+
+test('pbm', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 55, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.pbm')
+    ));
+
+test('pbm (ascii)', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 55, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.ascii.pbm')
+    ));
+
+test('pgm', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 59, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.pgm')
+    ));
+
+test('pgm (ascii)', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 65, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.ascii.pgm')
+    ));
+
+test('ppm', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 63, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.ppm')
+    ));
+
+test('ppm (ascii)', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 81, mime: 'image/x-portable-bitmap'},
+        attributes('test/files/example.ascii.ppm')
+    ));
+
 test('webm', (t) =>
     t.like(
         {width: 2, height: 4, size: 765, mime: 'video/webm'},

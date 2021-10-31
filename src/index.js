@@ -8,6 +8,7 @@ import {attributes as j2c} from './extractors/j2c';
 import {attributes as jpg} from './extractors/jpg';
 import {attributes as ktx} from './extractors/ktx';
 import {attributes as png} from './extractors/png';
+import {attributes as pnm} from './extractors/pnm';
 import {attributes as psd} from './extractors/psd';
 import {attributes as svg} from './extractors/svg';
 import {attributes as tiff} from './extractors/tiff';
@@ -39,6 +40,7 @@ const extractors = {
     jpg,
     ktx,
     png,
+    pnm,
     psd,
     svg,
     tiff,
