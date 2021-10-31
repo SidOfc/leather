@@ -112,31 +112,35 @@ console.log(jpg.attributes('cat.jpg'));
 
 All supported image and video formats can be found in the table below:
 
-| identifier | type  | mime type                 |
-|:----------:|:-----:|:--------------------------|
-|    bmp     | image | image/bmp                 |
-|    cur     | image | image/x-icon              |
-|    dds     | image | image/vnd.ms-dds          |
-|    gif     | image | image/gif                 |
-|    icns    | image | image/x-icns              |
-|    ico     | image | image/x-icon              |
-|    j2c     | image | image/x-jp2-codestream    |
-|    jp2     | image | image/jp2                 |
-|    jpg     | image | image/jpeg                |
-|    ktx     | image | image/ktx                 |
-|    png     | image | image/png                 |
-|    pnm     | image | image/x-portable-bitmap   |
-|    psd     | image | image/vnd.adobe.photoshop |
-|    svg     | image | image/svg+xml             |
-|    tiff    | image | image/tiff                |
-|    webp    | image | image/webp                |
-|    avi     | video | video/x-msvideo           |
-|    fli     | video | video/x-flic              |
-|    flc     | video | video/x-flic              |
-|    mkv     | video | video/x-matroska          |
-|    mp4     | video | video/mp4                 |
-|    ogv     | video | video/ogg                 |
-|    webm    | video | video/webm                |
+|  format  | extractor                      | mime type                 |
+|:---------|:-------------------------------|:--------------------------|
+| **bmp**  | [bmp](src/extractors/bmp.js)   | image/bmp                 |
+| **dds**  | [dds](src/extractors/dds.js)   | image/vnd.ms-dds          |
+| **gif**  | [gif](src/extractors/gif.js)   | image/gif                 |
+| **icns** | [icns](src/extractors/icns.js) | image/x-icns              |
+| **ico**  | [ico](src/extractors/ico.js)   | image/x-icon              |
+| **cur**  | [ico](src/extractors/ico.js)   | image/x-icon              |
+| **j2c**  | [j2c](src/extractors/j2c.js)   | image/x-jp2-codestream    |
+| **jp2**  | [j2c](src/extractors/j2c.js)   | image/jp2                 |
+| **jpg**  | [jpg](src/extractors/jpg.js)   | image/jpeg                |
+| **ktx**  | [ktx](src/extractors/ktx.js)   | image/ktx                 |
+| **png**  | [png](src/extractors/png.js)   | image/png                 |
+| **pfm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
+| **pam**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
+| **pbm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
+| **pgm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
+| **ppm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
+| **psd**  | [psd](src/extractors/psd.js)   | image/vnd.adobe.photoshop |
+| **svg**  | [svg](src/extractors/svg.js)   | image/svg+xml             |
+| **tiff** | [tiff](src/extractors/tiff.js) | image/tiff                |
+| **webp** | [webp](src/extractors/webp.js) | image/webp                |
+| **avi**  | [avi](src/extractors/avi.js)   | video/x-msvideo           |
+| **fli**  | [fli](src/extractors/fli.js)   | video/x-flic              |
+| **flc**  | [fli](src/extractors/fli.js)   | video/x-flic              |
+| **mp4**  | [mp4](src/extractors/mp4.js)   | video/mp4                 |
+| **ogv**  | [ogv](src/extractors/ogv.js)   | video/ogg                 |
+| **mkv**  | [webm](src/extractors/webm.js) | video/x-matroska          |
+| **webm** | [webm](src/extractors/webm.js) | video/webm                |
 
 # Changelog
 
