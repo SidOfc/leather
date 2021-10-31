@@ -125,6 +125,7 @@ All supported image and video formats can be found in the table below:
 |    jpg     | image | image/jpeg                |
 |    ktx     | image | image/ktx                 |
 |    png     | image | image/png                 |
+|    pnm     | image | image/x-portable-bitmap   |
 |    psd     | image | image/vnd.adobe.photoshop |
 |    svg     | image | image/svg+xml             |
 |    tiff    | image | image/tiff                |
@@ -149,3 +150,4 @@ All supported image and video formats can be found in the table below:
 - https://docs.microsoft.com/en-us/previous-versions/ms779632(v=vs.85)
 - https://en.wikipedia.org/wiki/List_of_file_signatures
 - https://www.fileformat.info/format/tiff/egff.htm#TIFF.FO
+- http://netpbm.sourceforge.net/doc/#formats

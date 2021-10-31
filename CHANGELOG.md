@@ -2,6 +2,10 @@
 
 All dates are in **DD-MM-YYYY** format.
 
+# 31-10-2021 VERSION 1.5.0
+
+- Add: `pnm` support (`pbm`, `pgm`, `ppm`, `pfm`, `pam`)
+
 # 24-10-2021 VERSION 1.4.0
 
 - Add: `fli` support
