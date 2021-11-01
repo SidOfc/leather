@@ -2,6 +2,10 @@
 
 All dates are in **DD-MM-YYYY** format.
 
+# 01-11-2021 VERSION 1.6.1
+
+- Fix: `import` examples in README.md do not have default exports
+
 # 01-11-2021 VERSION 1.6.0
 
 - Add: `mng` support

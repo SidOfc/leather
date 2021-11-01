@@ -60,20 +60,20 @@ yarn add leather
 After [installing the package](#installation), it can be imported using commonjs:
 
 ```javascript
-const leather = require('leather');
+const {attributes} = require('leather');
 ```
 
 Or using ES modules:
 
 ```javascript
-import leather from 'leather';
+import {attributes} from 'leather';
 ```
 
 Then, it can be called on [supported image and video formats](#supported-formats):
 
 ```javascript
 
-console.log(leather.attributes('cat.jpg'));
+console.log(attributes('cat.jpg'));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
@@ -90,9 +90,9 @@ require only the extractors you need, e.g. for jpg/jpeg using commonjs:
 
 ```javascript
 
-const jpg = require('leather/extractors/jpg');
+const {attributes} = require('leather/extractors/jpg');
 
-console.log(jpg.attributes('cat.jpg'));
+console.log(attributes('cat.jpg'));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
@@ -101,9 +101,9 @@ Or using ES modules:
 
 ```javascript
 
-import jpg from 'leather/extractors/jpg';
+import {attributes} from 'leather/extractors/jpg';
 
-console.log(jpg.attributes('cat.jpg'));
+console.log(attributes('cat.jpg'));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
