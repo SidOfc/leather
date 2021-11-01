@@ -228,3 +228,21 @@ test('mng', (t) =>
         {width: 100, height: 100, size: 5133, mime: 'video/x-mng'},
         attributes('test/files/example.mng')
     ));
+
+test('flv', (t) =>
+    t.like(
+        {width: 100, height: 100, size: 17818, mime: 'video/x-flv'},
+        attributes('test/files/example.flv')
+    ));
+
+test('mov', (t) =>
+    t.like(
+        {width: 100, height: 100, size: 6156, mime: 'video/quicktime'},
+        attributes('test/files/example.mov')
+    ));
+
+test('wmv', (t) =>
+    t.like(
+        {width: 100, height: 100, size: 19827, mime: 'video/x-ms-wmv'},
+        attributes('test/files/example.wmv')
+    ));

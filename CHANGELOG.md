@@ -5,6 +5,9 @@ All dates are in **DD-MM-YYYY** format.
 # 01-11-2021 VERSION 1.6.0
 
 - Add: `mng` support
+- Add: `flv` support
+- Add: `mov` support
+- Add: `wmv` support
 - Improve: test animated `png`
 - Improve: test animated `webp`
 

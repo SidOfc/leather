@@ -15,9 +15,11 @@ import {attributes as tiff} from './extractors/tiff';
 import {attributes as webp} from './extractors/webp';
 import {attributes as avi} from './extractors/avi';
 import {attributes as fli} from './extractors/fli';
+import {attributes as flv} from './extractors/flv';
 import {attributes as ogv} from './extractors/ogv';
 import {attributes as mp4} from './extractors/mp4';
 import {attributes as webm} from './extractors/webm';
+import {attributes as wmv} from './extractors/wmv';
 
 // dimension to byte mapping to make it easier
 // to identify byte offsets of hexdump output
@@ -47,9 +49,11 @@ const extractors = {
     webp,
     avi,
     fli, // also used for: flc
+    flv,
     ogv,
     mp4,
     webm, // also used for: mkv
+    wmv,
 };
 
 export function attributes(file) {

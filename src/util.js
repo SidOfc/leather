@@ -19,10 +19,12 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^52494646.{8}57454250/i,               'webp');
     BYTE_INFO.set(/^52494646/i,                           'avi');
     BYTE_INFO.set(/^.{8}1[12]af/i,                        'fli');
-    BYTE_INFO.set(/^00000020/i,                           'mp4');
+    BYTE_INFO.set(/^464c56/i,                             'flv');
+    BYTE_INFO.set(/^000000(?:20|14)/i,                    'mp4');
     BYTE_INFO.set(/^4f676753/i,                           'ogv');
     BYTE_INFO.set(/^1a45dfa3(?:01|9f|a3)/i,               'webm');
     BYTE_INFO.set(/^50(?:3[1-7]|46)/i,                    'pnm');
+    BYTE_INFO.set(/^3026b2/i,                             'wmv');
 }
 
 export function lazystream(file) {
@@ -149,6 +151,10 @@ export function lazystream(file) {
             const v2 = methods.takeUInt32LE();
 
             return 0x100000000 * v2 + v1;
+        },
+
+        takeDoubleBE() {
+            return methods.take(8).readDoubleBE();
         },
 
         indexOf(buffer) {
