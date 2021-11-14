@@ -17,6 +17,7 @@ import {attributes as xpm} from './extractors/xpm';
 import {attributes as xbm} from './extractors/xbm';
 import {attributes as fit} from './extractors/fit';
 import {attributes as cel} from './extractors/cel';
+import {attributes as hdr} from './extractors/hdr';
 import {attributes as avi} from './extractors/avi';
 import {attributes as fli} from './extractors/fli';
 import {attributes as flv} from './extractors/flv';
@@ -44,6 +45,7 @@ const extractors = {
     xpm,
     xbm,
     cel,
+    hdr,
     fit,
     avi,
     fli, // also used for: flc

@@ -138,6 +138,7 @@ All supported image and video formats can be found in the table below:
 | **xbm**  | [xbm](src/extractors/xbm.js)   | image/x-xbitmap           |
 | **fit**  | [fit](src/extractors/fit.js)   | image/fits                |
 | **cel**  | [cel](src/extractors/cel.js)   | application/octet-stream  |
+| **hdr**  | [hdr](src/extractors/hdr.js)   | text/x-mpsub              |
 | **avi**  | [avi](src/extractors/avi.js)   | video/x-msvideo           |
 | **fli**  | [fli](src/extractors/fli.js)   | video/x-flic              |
 | **flc**  | [fli](src/extractors/fli.js)   | video/x-flic              |

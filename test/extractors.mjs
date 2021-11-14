@@ -211,6 +211,12 @@ test('fit', (t) =>
         attributes('test/files/example.fit')
     ));
 
+test('hdr', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 67, mime: 'text/x-mpsub'},
+        attributes('test/files/example.hdr')
+    ));
+
 test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},
