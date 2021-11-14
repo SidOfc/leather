@@ -193,6 +193,12 @@ test('xpm', (t) =>
         attributes('test/files/example.xpm')
     ));
 
+test('xbm', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 106, mime: 'image/x-xbitmap'},
+        attributes('test/files/example.xbm')
+    ));
+
 test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},

@@ -18,6 +18,7 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^(?:49492a00|4d4d002a)/i,              'tiff');
     BYTE_INFO.set(/^52494646.{8}57454250/i,               'webp');
     BYTE_INFO.set(/^2f2a2058504d/i,                       'xpm');
+    BYTE_INFO.set(/^23646566696e/i,                       'xbm');
     BYTE_INFO.set(/^52494646/i,                           'avi');
     BYTE_INFO.set(/^.{8}1[12]af/i,                        'fli');
     BYTE_INFO.set(/^464c56/i,                             'flv');

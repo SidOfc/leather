@@ -1,0 +1,4 @@
+#define example_width 1
+#define example_height 2
+static unsigned char example_bits[] = {
+   0x01, 0x01 };
