@@ -148,7 +148,7 @@ All supported image and video formats can be found in the table below:
 
 # Changelog
 
-[View the changelog here.](CHANGELOG.md)
+[View releases.](https://github.com/SidOfc/leather/releases)
 
 # Credits and other resources that saved my soul
 
