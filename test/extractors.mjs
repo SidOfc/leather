@@ -187,6 +187,12 @@ test('tiff (big endian)', (t) =>
         attributes('test/files/example.be.tiff')
     ));
 
+test('xpm', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 79, mime: 'image/x-xpixmap'},
+        attributes('test/files/example.xpm')
+    ));
+
 test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},

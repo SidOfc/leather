@@ -134,6 +134,7 @@ All supported image and video formats can be found in the table below:
 | **svg**  | [svg](src/extractors/svg.js)   | image/svg+xml             |
 | **tiff** | [tiff](src/extractors/tiff.js) | image/tiff                |
 | **webp** | [webp](src/extractors/webp.js) | image/webp                |
+| **xpm**  | [xpm](src/extractors/xpm.js)   | image/x-xpixmap           |
 | **avi**  | [avi](src/extractors/avi.js)   | video/x-msvideo           |
 | **fli**  | [fli](src/extractors/fli.js)   | video/x-flic              |
 | **flc**  | [fli](src/extractors/fli.js)   | video/x-flic              |
