@@ -205,6 +205,12 @@ test('cel', (t) =>
         attributes('test/files/example.cel')
     ));
 
+test('fit', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 5760, mime: 'image/fits'},
+        attributes('test/files/example.fit')
+    ));
+
 test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},
