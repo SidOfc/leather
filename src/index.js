@@ -15,6 +15,7 @@ import {attributes as tiff} from './extractors/tiff';
 import {attributes as webp} from './extractors/webp';
 import {attributes as xpm} from './extractors/xpm';
 import {attributes as xbm} from './extractors/xbm';
+import {attributes as cel} from './extractors/cel';
 import {attributes as avi} from './extractors/avi';
 import {attributes as fli} from './extractors/fli';
 import {attributes as flv} from './extractors/flv';
@@ -41,6 +42,7 @@ const extractors = {
     webp,
     xpm,
     xbm,
+    cel,
     avi,
     fli, // also used for: flc
     flv,

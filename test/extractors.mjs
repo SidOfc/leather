@@ -199,6 +199,12 @@ test('xbm', (t) =>
         attributes('test/files/example.xbm')
     ));
 
+test('cel', (t) =>
+    t.like(
+        {width: 1, height: 2, size: 40, mime: 'application/octet-stream'},
+        attributes('test/files/example.cel')
+    ));
+
 test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},
