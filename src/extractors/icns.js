@@ -1,4 +1,4 @@
-import {lazystream} from '../util';
+import {lazystream} from '../util.js';
 
 const TYPE_SIZES = {
     ICON: 32,

@@ -4,6 +4,7 @@
     "description": "A pure JS library for extracting image/video attributes such as width, height, size, and mime type",
     "author": "Sidney Liebrand",
     "license": "MIT",
+    "type": "module",
     "repository": "github:SidOfc/leather",
     "keywords": [
         "image",
@@ -67,7 +68,7 @@
         }
     },
     "scripts": {
-        "test": "npm run build --silent && ava --verbose",
+        "test": "ava",
         "build": "rollup -c --silent",
         "watch": "rollup -cw",
         "prepare": "npm run build"
@@ -79,8 +80,8 @@
         "bracketSpacing": false
     },
     "devDependencies": {
-        "ava": "^4.0.0-alpha.2",
-        "prettier": "^2.4.1",
-        "rollup": "^2.58.0"
+        "ava": "^4.1.0",
+        "prettier": "^2.6.0",
+        "rollup": "^2.70.0"
     }
 }

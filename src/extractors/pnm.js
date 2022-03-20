@@ -1,4 +1,4 @@
-import {lazystream} from '../util';
+import {lazystream} from '../util.js';
 
 const WHITESPACE = [0x20, 0x09, 0x0d, 0x0a];
 
