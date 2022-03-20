@@ -1,4 +1,4 @@
-import {lazystream} from '../util';
+import {lazystream} from '../util.js';
 
 const UNITS = {
     m: 3779.5275590551178,

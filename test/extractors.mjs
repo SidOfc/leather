@@ -1,5 +1,5 @@
 import test from 'ava';
-import {attributes} from '../dist/index.mjs';
+import {attributes} from '../src/index.js';
 
 test('jpg', (t) =>
     t.like(

@@ -1,4 +1,4 @@
-import {lazystream} from '../util';
+import {lazystream} from '../util.js';
 
 export function attributes(input) {
     const stream = lazystream(input);
