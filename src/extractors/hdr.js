@@ -6,7 +6,7 @@ export function attributes(input) {
         width: 0,
         height: 0,
         size: stream.size(),
-        mime: 'text/x-mpsub',
+        mime: 'image/vnd.radiance',
     };
 
     while (stream.more()) {

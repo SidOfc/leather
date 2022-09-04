@@ -112,45 +112,46 @@ console.log(attributes('cat.jpg'));
 
 All supported image and video formats can be found in the table below:
 
-|  format  | extractor                      | mime type                 |
-|:---------|:-------------------------------|:--------------------------|
-| **bmp**  | [bmp](src/extractors/bmp.js)   | image/bmp                 |
-| **dds**  | [dds](src/extractors/dds.js)   | image/vnd.ms-dds          |
-| **gif**  | [gif](src/extractors/gif.js)   | image/gif                 |
-| **icns** | [icns](src/extractors/icns.js) | image/x-icns              |
-| **ico**  | [ico](src/extractors/ico.js)   | image/x-icon              |
-| **cur**  | [ico](src/extractors/ico.js)   | image/x-icon              |
-| **j2c**  | [j2c](src/extractors/j2c.js)   | image/x-jp2-codestream    |
-| **jp2**  | [j2c](src/extractors/j2c.js)   | image/jp2                 |
-| **jpg**  | [jpg](src/extractors/jpg.js)   | image/jpeg                |
-| **ktx**  | [ktx](src/extractors/ktx.js)   | image/ktx                 |
-| **png**  | [png](src/extractors/png.js)   | image/png                 |
-| **pfm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
-| **pam**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
-| **pbm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
-| **pgm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
-| **ppm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap   |
-| **psd**  | [psd](src/extractors/psd.js)   | image/vnd.adobe.photoshop |
-| **svg**  | [svg](src/extractors/svg.js)   | image/svg+xml             |
-| **tiff** | [tiff](src/extractors/tiff.js) | image/tiff                |
-| **webp** | [webp](src/extractors/webp.js) | image/webp                |
-| **xpm**  | [xpm](src/extractors/xpm.js)   | image/x-xpixmap           |
-| **xbm**  | [xbm](src/extractors/xbm.js)   | image/x-xbitmap           |
-| **fit**  | [fit](src/extractors/fit.js)   | image/fits                |
-| **cel**  | [cel](src/extractors/cel.js)   | application/octet-stream  |
-| **hdr**  | [hdr](src/extractors/hdr.js)   | text/x-mpsub              |
-| **avi**  | [avi](src/extractors/avi.js)   | video/x-msvideo           |
-| **fli**  | [fli](src/extractors/fli.js)   | video/x-flic              |
-| **flc**  | [fli](src/extractors/fli.js)   | video/x-flic              |
-| **flv**  | [flv](src/extractors/flv.js)   | video/x-flv               |
-| **mng**  | [png](src/extractors/png.js)   | video/x-mng               |
-| **mp4**  | [mp4](src/extractors/mp4.js)   | video/mp4                 |
-| **m4v**  | [mp4](src/extractors/mp4.js)   | video/x-m4v               |
-| **mov**  | [mp4](src/extractors/mp4.js)   | video/quicktime           |
-| **ogv**  | [ogv](src/extractors/ogv.js)   | video/ogg                 |
-| **mkv**  | [webm](src/extractors/webm.js) | video/x-matroska          |
-| **webm** | [webm](src/extractors/webm.js) | video/webm                |
-| **wmv**  | [wmv](src/extractors/wmv.js)   | video/x-ms-wmv            |
+|  format  | extractor                      | mime type                     |
+|:---------|:-------------------------------|:------------------------------|
+| **bmp**  | [bmp](src/extractors/bmp.js)   | image/bmp                     |
+| **dds**  | [dds](src/extractors/dds.js)   | image/vnd.ms-dds              |
+| **gif**  | [gif](src/extractors/gif.js)   | image/gif                     |
+| **icns** | [icns](src/extractors/icns.js) | image/x-icns                  |
+| **ico**  | [ico](src/extractors/ico.js)   | image/vnd.microsoft.icon      |
+| **cur**  | [ico](src/extractors/ico.js)   | image/vnd.microsoft.icon      |
+| **j2c**  | [j2c](src/extractors/j2c.js)   | image/jp2                     |
+| **jp2**  | [j2c](src/extractors/j2c.js)   | image/jp2                     |
+| **jpg**  | [jpg](src/extractors/jpg.js)   | image/jpeg                    |
+| **ktx**  | [ktx](src/extractors/ktx.js)   | image/ktx                     |
+| **png**  | [png](src/extractors/png.js)   | image/png                     |
+| **apng** | [png](src/extractors/png.js)   | image/apng                    |
+| **pfm**  | [pnm](src/extractors/pnm.js)   | application/x-font-type1      |
+| **pam**  | [pnm](src/extractors/pnm.js)   | image/x-portable-arbitrarymap |
+| **pbm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-bitmap       |
+| **pgm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-graymap      |
+| **ppm**  | [pnm](src/extractors/pnm.js)   | image/x-portable-pixmap       |
+| **psd**  | [psd](src/extractors/psd.js)   | image/vnd.adobe.photoshop     |
+| **svg**  | [svg](src/extractors/svg.js)   | image/svg+xml                 |
+| **tiff** | [tiff](src/extractors/tiff.js) | image/tiff                    |
+| **webp** | [webp](src/extractors/webp.js) | image/webp                    |
+| **xpm**  | [xpm](src/extractors/xpm.js)   | image/x-xpixmap               |
+| **xbm**  | [xbm](src/extractors/xbm.js)   | image/x-xbitmap               |
+| **fit**  | [fit](src/extractors/fit.js)   | image/fits                    |
+| **cel**  | [cel](src/extractors/cel.js)   | application/octet-stream      |
+| **hdr**  | [hdr](src/extractors/hdr.js)   | image/vnd.radiance            |
+| **avi**  | [avi](src/extractors/avi.js)   | video/x-msvideo               |
+| **fli**  | [fli](src/extractors/fli.js)   | video/x-fli                   |
+| **flc**  | [fli](src/extractors/fli.js)   | video/x-fli                   |
+| **flv**  | [flv](src/extractors/flv.js)   | video/x-flv                   |
+| **mng**  | [png](src/extractors/png.js)   | video/x-mng                   |
+| **mp4**  | [mp4](src/extractors/mp4.js)   | video/mp4                     |
+| **m4v**  | [mp4](src/extractors/mp4.js)   | video/x-m4v                   |
+| **mov**  | [mp4](src/extractors/mp4.js)   | video/quicktime               |
+| **ogv**  | [ogv](src/extractors/ogv.js)   | video/ogg                     |
+| **mkv**  | [webm](src/extractors/webm.js) | video/x-matroska              |
+| **webm** | [webm](src/extractors/webm.js) | video/webm                    |
+| **wmv**  | [wmv](src/extractors/wmv.js)   | video/x-ms-wmv                |
 
 # Changelog
 

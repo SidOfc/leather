@@ -1,16 +1,15 @@
 import {lazystream} from '../util.js';
 
-const mimeIds = {
-    '667479706d703432': 'video/x-m4v',
-    '667479704d345620': 'video/x-m4v',
-    6674797071742020: 'video/quicktime',
+const MIME_TYPES = {
+    ['667479704d345620']: 'video/x-m4v',
+    ['6674797071742020']: 'video/quicktime',
 };
 
 export function attributes(input) {
     const stream = lazystream(input);
     const startIndex = stream.indexOf(Buffer.from('tkhd'));
-    const mimeId = stream.skip(4).take(8).toString('hex');
-    const mime = mimeIds[mimeId] || 'video/mp4';
+    const type = stream.skip(4).take(8).toString('hex');
+    const mime = MIME_TYPES[type] || 'video/mp4';
 
     const result = {
         width: 0,

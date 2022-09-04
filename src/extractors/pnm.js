@@ -1,6 +1,16 @@
 import {lazystream} from '../util.js';
 
 const WHITESPACE = [0x20, 0x09, 0x0d, 0x0a];
+const MIME_TYPES = {
+    ['PF']: 'application/x-font-type1',
+    ['P1']: 'image/x-portable-bitmap',
+    ['P2']: 'image/x-portable-graymap',
+    ['P3']: 'image/x-portable-pixmap',
+    ['P4']: 'image/x-portable-bitmap',
+    ['P5']: 'image/x-portable-graymap',
+    ['P6']: 'image/x-portable-pixmap',
+    ['P7']: 'image/x-portable-arbitrarymap',
+};
 
 export function attributes(input) {
     const stream = lazystream(input);
@@ -9,7 +19,7 @@ export function attributes(input) {
     const result = {
         ...attrs,
         size: stream.size(),
-        mime: 'image/x-portable-bitmap',
+        mime: MIME_TYPES[type],
     };
 
     stream.close();
