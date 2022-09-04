@@ -3,12 +3,23 @@ import {lazystream} from '../util.js';
 export function attributes(input) {
     const stream = lazystream(input);
     const startIndex = stream.indexOf(Buffer.from('tkhd'));
-    const isMOV = stream.skip(3).take()[0] === 0x14;
+    const identifier = stream.skip(4).take(8).toString('hex');
+    let mime;
+    switch(identifier){
+    	case '667479706d703432':
+		    mime = 'video/x-m4v';
+    	break;
+    	case '6674797071742020':
+		    mime = 'video/quicktime';
+    	break;
+    	default:
+		    mime = 'video/mp4';
+    }
     const result = {
         width: 0,
         height: 0,
         size: stream.size(),
-        mime: isMOV ? 'video/quicktime' : 'video/mp4',
+        mime,
     };
 
     if (startIndex !== -1) {
