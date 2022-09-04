@@ -145,6 +145,7 @@ All supported image and video formats can be found in the table below:
 | **flv**  | [flv](src/extractors/flv.js)   | video/x-flv               |
 | **mng**  | [png](src/extractors/png.js)   | video/x-mng               |
 | **mp4**  | [mp4](src/extractors/mp4.js)   | video/mp4                 |
+| **m4v**  | [mp4](src/extractors/mp4.js)   | video/m4v                 |
 | **mov**  | [mp4](src/extractors/mp4.js)   | video/quicktime           |
 | **ogv**  | [ogv](src/extractors/ogv.js)   | video/ogg                 |
 | **mkv**  | [webm](src/extractors/webm.js) | video/x-matroska          |
@@ -164,3 +165,4 @@ All supported image and video formats can be found in the table below:
 - https://en.wikipedia.org/wiki/List_of_file_signatures
 - https://www.fileformat.info/format/tiff/egff.htm#TIFF.FO
 - http://netpbm.sourceforge.net/doc/#formats
+- https://www.garykessler.net/library/file_sigs.html

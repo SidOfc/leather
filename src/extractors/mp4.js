@@ -1,14 +1,22 @@
 import {lazystream} from '../util.js';
 
+const mimeIds = {
+    '667479706d703432': 'video/x-m4v',
+    '667479704d345620': 'video/x-m4v',
+    6674797071742020: 'video/quicktime',
+};
+
 export function attributes(input) {
     const stream = lazystream(input);
     const startIndex = stream.indexOf(Buffer.from('tkhd'));
-    const isMOV = stream.skip(3).take()[0] === 0x14;
+    const mimeId = stream.skip(4).take(8).toString('hex');
+    const mime = mimeIds[mimeId] || 'video/mp4';
+
     const result = {
         width: 0,
         height: 0,
         size: stream.size(),
-        mime: isMOV ? 'video/quicktime' : 'video/mp4',
+        mime,
     };
 
     if (startIndex !== -1) {

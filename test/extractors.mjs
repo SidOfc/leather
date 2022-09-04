@@ -223,6 +223,12 @@ test('mp4', (t) =>
         attributes('test/files/example.mp4')
     ));
 
+test('m4v', (t) =>
+    t.like(
+        {width: 2, height: 4, size: 1580, mime: 'video/x-m4v'},
+        attributes('test/files/example.m4v')
+    ));
+
 test('ogv', (t) =>
     t.like(
         {width: 2, height: 4, size: 3573, mime: 'video/ogg'},

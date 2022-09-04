@@ -25,7 +25,7 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^52494646/i,                           'avi');
     BYTE_INFO.set(/^.{8}1[12]af/i,                        'fli');
     BYTE_INFO.set(/^464c56/i,                             'flv');
-    BYTE_INFO.set(/^000000(?:20|14)/i,                    'mp4');
+    BYTE_INFO.set(/^.{6}(?:20|14|6674)/i,                 'mp4');
     BYTE_INFO.set(/^4f676753/i,                           'ogv');
     BYTE_INFO.set(/^1a45dfa3(?:01|9f|a3)/i,               'webm');
     BYTE_INFO.set(/^50(?:3[1-7]|46)/i,                    'pnm');
@@ -38,7 +38,6 @@ export function lazystream(file) {
     let position = 0;
     let closed = false;
     let identifier;
-    let mime;
     const fd = fs.openSync(file, 'r');
     const ext = (file.split('.').pop() || '').toLowerCase();
     const {size} = fs.fstatSync(fd);
@@ -80,10 +79,6 @@ export function lazystream(file) {
 
         identifier() {
             return identifier;
-        },
-
-        mime() {
-            return mime;
         },
 
         take(bytes = 1) {

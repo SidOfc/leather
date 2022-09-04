@@ -51,7 +51,7 @@ const extractors = {
     fli, // also used for: flc
     flv,
     ogv,
-    mp4,
+    mp4, // also used for: m4v
     webm, // also used for: mkv
     wmv,
 };
