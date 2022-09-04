@@ -10,7 +10,7 @@ export function attributes(input) {
     const stream = lazystream(input);
     const startIndex = stream.indexOf(Buffer.from('tkhd'));
     const mimeId = stream.skip(4).take(8).toString('hex');
-    const mime = mimeIds[mimeId] ?? 'video/mp4';
+    const mime = mimeIds[mimeId] || 'video/mp4';
 
     const result = {
         width: 0,
