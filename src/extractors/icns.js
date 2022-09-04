@@ -36,7 +36,7 @@ const TYPE_SIZES = {
 
 export function attributes(input) {
     const stream = lazystream(input);
-    const type = stream.skip(8).take(4).toString('ascii');
+    const type = stream.skip(8).take(4).toString();
     const size = TYPE_SIZES[type] || 0;
     const result = {
         width: size,

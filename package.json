@@ -82,6 +82,7 @@
     },
     "devDependencies": {
         "ava": "^4.1.0",
+        "mime-types": "^2.1.35",
         "prettier": "^2.6.0",
         "rollup": "^2.70.0"
     }

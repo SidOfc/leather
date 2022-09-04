@@ -9,7 +9,7 @@ test('jpg', (t) =>
 
 test('j2c', (t) =>
     t.like(
-        {width: 1, height: 2, size: 282, mime: 'image/x-jp2-codestream'},
+        {width: 1, height: 2, size: 282, mime: 'image/jp2'},
         attributes('test/files/example.j2c')
     ));
 
@@ -27,7 +27,7 @@ test('png', (t) =>
 
 test('apng', (t) =>
     t.like(
-        {width: 100, height: 100, size: 63435, mime: 'image/png'},
+        {width: 100, height: 100, size: 63435, mime: 'image/apng'},
         attributes('test/files/example.apng')
     ));
 
@@ -51,13 +51,13 @@ test('gif', (t) =>
 
 test('ico', (t) =>
     t.like(
-        {width: 1, height: 2, size: 86, mime: 'image/x-icon'},
+        {width: 1, height: 2, size: 86, mime: 'image/vnd.microsoft.icon'},
         attributes('test/files/example.ico')
     ));
 
 test('cur', (t) =>
     t.like(
-        {width: 1, height: 2, size: 78, mime: 'image/x-icon'},
+        {width: 1, height: 2, size: 78, mime: 'image/vnd.microsoft.icon'},
         attributes('test/files/example.cur')
     ));
 
@@ -117,13 +117,13 @@ test('icns', (t) =>
 
 test('pfm', (t) =>
     t.like(
-        {width: 1, height: 2, size: 36, mime: 'image/x-portable-bitmap'},
+        {width: 1, height: 2, size: 36, mime: 'application/x-font-type1'},
         attributes('test/files/example.pfm')
     ));
 
 test('pam', (t) =>
     t.like(
-        {width: 1, height: 2, size: 84, mime: 'image/x-portable-bitmap'},
+        {width: 1, height: 2, size: 84, mime: 'image/x-portable-arbitrarymap'},
         attributes('test/files/example.pam')
     ));
 
@@ -141,25 +141,25 @@ test('pbm (ascii)', (t) =>
 
 test('pgm', (t) =>
     t.like(
-        {width: 1, height: 2, size: 59, mime: 'image/x-portable-bitmap'},
+        {width: 1, height: 2, size: 59, mime: 'image/x-portable-graymap'},
         attributes('test/files/example.pgm')
     ));
 
 test('pgm (ascii)', (t) =>
     t.like(
-        {width: 1, height: 2, size: 65, mime: 'image/x-portable-bitmap'},
+        {width: 1, height: 2, size: 65, mime: 'image/x-portable-graymap'},
         attributes('test/files/example.ascii.pgm')
     ));
 
 test('ppm', (t) =>
     t.like(
-        {width: 1, height: 2, size: 63, mime: 'image/x-portable-bitmap'},
+        {width: 1, height: 2, size: 63, mime: 'image/x-portable-pixmap'},
         attributes('test/files/example.ppm')
     ));
 
 test('ppm (ascii)', (t) =>
     t.like(
-        {width: 1, height: 2, size: 81, mime: 'image/x-portable-bitmap'},
+        {width: 1, height: 2, size: 81, mime: 'image/x-portable-pixmap'},
         attributes('test/files/example.ascii.ppm')
     ));
 
@@ -213,7 +213,7 @@ test('fit', (t) =>
 
 test('hdr', (t) =>
     t.like(
-        {width: 1, height: 2, size: 67, mime: 'text/x-mpsub'},
+        {width: 1, height: 2, size: 67, mime: 'image/vnd.radiance'},
         attributes('test/files/example.hdr')
     ));
 
@@ -221,6 +221,12 @@ test('mp4', (t) =>
     t.like(
         {width: 2, height: 4, size: 1548, mime: 'video/mp4'},
         attributes('test/files/example.mp4')
+    ));
+
+test('mp4 (mp42)', (t) =>
+    t.like(
+        {width: 2, height: 4, size: 1580, mime: 'video/mp4'},
+        attributes('test/files/example.mp42.mp4')
     ));
 
 test('m4v', (t) =>
@@ -249,13 +255,13 @@ test('avi', (t) =>
 
 test('fli', (t) =>
     t.like(
-        {width: 1, height: 2, size: 934, mime: 'video/x-flic'},
+        {width: 1, height: 2, size: 934, mime: 'video/x-fli'},
         attributes('test/files/example.fli')
     ));
 
 test('flc', (t) =>
     t.like(
-        {width: 1, height: 2, size: 934, mime: 'video/x-flic'},
+        {width: 1, height: 2, size: 934, mime: 'video/x-fli'},
         attributes('test/files/example.flc')
     ));
 

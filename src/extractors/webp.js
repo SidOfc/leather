@@ -2,7 +2,7 @@ import {lazystream} from '../util.js';
 
 export function attributes(input) {
     const stream = lazystream(input);
-    const header = stream.skip(12).take(4).toString('ascii');
+    const header = stream.skip(12).take(4).toString();
     const isLossless = stream.skip(4).take()[0] === 0x2f;
     const isLossy = stream.skip(2).take(3).toString('hex') === '9d012a';
     const result = {

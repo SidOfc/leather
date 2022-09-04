@@ -8,6 +8,7 @@ export function attributes(input) {
         size: stream.size(),
         mime: 'image/x-xpixmap',
     };
+
     const startIndex = stream.indexOf(Buffer.from('{\n"'));
 
     if (startIndex !== -1) {
