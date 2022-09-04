@@ -165,3 +165,4 @@ All supported image and video formats can be found in the table below:
 - https://en.wikipedia.org/wiki/List_of_file_signatures
 - https://www.fileformat.info/format/tiff/egff.htm#TIFF.FO
 - http://netpbm.sourceforge.net/doc/#formats
+- https://www.garykessler.net/library/file_sigs.html
