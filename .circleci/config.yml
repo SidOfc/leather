@@ -9,13 +9,7 @@ workflows:
       - node/test:
           version: '18.0'
       - node/test:
-          version: '17.0'
-      - node/test:
           version: '16.0'
       - node/test:
-          version: '15.0'
-      - node/test:
-          version: '14.15'
-      - node/test:
-          version: '12.20'
+          version: '14.18'
 

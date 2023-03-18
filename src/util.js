@@ -38,9 +38,10 @@ export function lazystream(file) {
     let position = 0;
     let closed = false;
     let identifier;
-    const fd = fs.openSync(file, 'r');
-    const ext = (file.split('.').pop() || '').toLowerCase();
-    const {size} = fs.fstatSync(fd);
+    const isBuffer = Buffer.isBuffer(file);
+    const reader = isBuffer ? file : fs.openSync(file, 'r');
+    const size = isBuffer ? reader.length : fs.fstatSync(reader).size;
+
     const methods = {
         _lazystream: true,
         skip(bytes = 1) {
@@ -82,11 +83,24 @@ export function lazystream(file) {
         },
 
         take(bytes = 1) {
-            const buffer = Buffer.alloc(bytes);
-            const bytesRead = fs.readSync(fd, buffer, 0, bytes, position);
-            position += bytesRead;
+            if (isBuffer) {
+                const buffer = reader.subarray(position, position + bytes);
+                position += buffer.length;
 
-            return buffer;
+                return buffer;
+            } else {
+                const buffer = Buffer.alloc(bytes);
+                const bytesRead = fs.readSync(
+                    reader,
+                    buffer,
+                    0,
+                    bytes,
+                    position
+                );
+                position += bytesRead;
+
+                return buffer;
+            }
         },
 
         takeUntil(target) {
@@ -203,7 +217,7 @@ export function lazystream(file) {
             if (closed) return;
 
             closed = true;
-            fs.closeSync(fd);
+            if (!isBuffer) fs.closeSync(reader);
         },
     };
 
