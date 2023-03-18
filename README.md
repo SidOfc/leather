@@ -41,6 +41,15 @@ by steering clear of any command-line tools which makes it more portable.
 
 Node version 12.20 and up are supported.
 
+## Tested Node versions
+
+Since migrating to Rollup 3, the minimum required Node version is 14.18.
+This means that Node 12.20 is no longer tested on CI due to failing `npm i`
+and will no longer receive functional support.
+
+Node version 12.20 does still work as of version 2.1.0 but may fail
+in future releases.
+
 # Installation
 
 Install the package locally using [`npm`](https://www.npmjs.com/):
