@@ -1,5 +1,4 @@
 import {readdirSync} from 'fs';
-import {execSync} from 'child_process';
 import test from 'ava';
 import mime from 'mime-types';
 import {attributes} from '../src/index.js';

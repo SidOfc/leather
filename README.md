@@ -72,8 +72,20 @@ import {attributes} from 'leather';
 Then, it can be called on [supported image and video formats](#supported-formats):
 
 ```javascript
-
 console.log(attributes('cat.jpg'));
+
+// => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
+```
+
+## Buffer support
+
+Starting from version **2.1.0**, all `attributes` methods also accept `Buffer`
+instances in addition to file paths:
+
+```javascript
+const buffer = fs.readFileSync('cat.png');
+
+console.log(attributes(buffer));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
@@ -89,10 +101,11 @@ If you are only using one or a few of the extractors, you can opt to
 require only the extractors you need, e.g. for jpg/jpeg using commonjs:
 
 ```javascript
-
+const {readFileSync} = require('fs');
 const {attributes} = require('leather/extractors/jpg');
 
 console.log(attributes('cat.jpg'));
+console.log(attributes(readFileSync('cat.jpg')));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
@@ -100,10 +113,11 @@ console.log(attributes('cat.jpg'));
 Or using ES modules:
 
 ```javascript
-
+import {readFileSync} from 'fs';
 import {attributes} from 'leather/extractors/jpg';
 
 console.log(attributes('cat.jpg'));
+console.log(attributes(readFileSync('cat.jpg')));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
