@@ -85,6 +85,7 @@ export function lazystream(file) {
         take(bytes = 1) {
             if (isBuffer) {
                 const buffer = reader.subarray(position, position + bytes);
+
                 position += buffer.length;
 
                 return buffer;
@@ -97,6 +98,7 @@ export function lazystream(file) {
                     bytes,
                     position
                 );
+
                 position += bytesRead;
 
                 return buffer;
@@ -158,6 +160,13 @@ export function lazystream(file) {
 
         takeUInt32LE() {
             return methods.take(4).readUInt32LE();
+        },
+
+        takeUInt64BE() {
+            const v1 = methods.takeUInt32BE();
+            const v2 = methods.takeUInt32BE();
+
+            return 0x100000000 * v1 + v2;
         },
 
         takeUInt64LE() {
