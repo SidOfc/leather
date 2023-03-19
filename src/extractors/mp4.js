@@ -11,38 +11,30 @@ export function attributes(input) {
     const mime = MIME_TYPES[type] || 'video/mp4';
 
     stream.goto(0);
-    const result = Object.assign(v2(stream) ?? {}, {size: stream.size(), mime});
 
-    if (!Number.isInteger(result.width) || !Number.isInteger(result.height)) {
-        stream.goto(0);
-
-        const startIndex = stream.indexOf(Buffer.from('tkhd'));
-
-        if (startIndex === -1) {
-            result.width = 0;
-            result.height = 0;
-        } else {
-            result.width = stream.goto(startIndex).skip(78).takeUInt32BE();
-            result.height = stream.takeUInt32BE();
-        }
-    }
+    const result = Object.assign(parse(stream) ?? {}, {
+        size: stream.size(),
+        mime,
+    });
 
     stream.close();
 
     return result;
 }
 
-const containers = ['moov', 'mdia', 'trak'];
-
-function v2(stream, lastTkhd) {
+function parse(stream, lastTkhd, ftypSize = 32) {
     while (stream.more()) {
-        const size = stream.takeUInt32BE();
+        let size = stream.takeUInt32BE();
         const header = stream.take(4).toString();
 
-        if (containers.includes(header)) {
-            const result = v2(stream, lastTkhd);
+        if (header === 'ftyp') ftypSize = size;
+
+        if (['moov', 'mdia', 'trak'].includes(header)) {
+            const result = parse(stream, lastTkhd, ftypSize);
 
             if (result) return result;
+        } else if (ftypSize === 28 && header === 'mdat') {
+            size += stream.skip(4).takeUInt32BE() - size;
         } else if (header === 'tkhd') {
             const pos = stream.position();
             lastTkhd = stream.take(size - 8);
@@ -50,20 +42,13 @@ function v2(stream, lastTkhd) {
             stream.goto(pos);
         } else if (header === 'hdlr') {
             const pos = stream.position();
-            const hdlr = stream.take(size - 8);
+            const hdlr = stream.skip(8).take(4);
 
-            if (
-                hdlr[8] == 0x76 &&
-                hdlr[9] == 0x69 &&
-                hdlr[10] == 0x64 &&
-                hdlr[11] == 0x65
-            ) {
-                const width =
-                    lastTkhd.readUInt32BE(lastTkhd.length - 8) / 65536;
-                const height =
-                    lastTkhd.readUInt32BE(lastTkhd.length - 4) / 65536;
-
-                return {width, height};
+            if (hdlr.includes('vide')) {
+                return {
+                    width: lastTkhd.readUInt32BE(lastTkhd.length - 8) / 65536,
+                    height: lastTkhd.readUInt32BE(lastTkhd.length - 4) / 65536,
+                };
             }
 
             stream.goto(pos);
