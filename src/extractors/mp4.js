@@ -10,6 +10,7 @@ export function attributes(input) {
     const type = stream.skip(4).take(8).toString('hex');
     const mime = MIME_TYPES[type] || 'video/mp4';
 
+    stream.goto(0);
     const result = Object.assign(v2(stream) ?? {}, {size: stream.size(), mime});
 
     if (!Number.isInteger(result.width) || !Number.isInteger(result.height)) {
@@ -68,6 +69,6 @@ function v2(stream, lastTkhd) {
             stream.goto(pos);
         }
 
-        stream.skip(size);
+        stream.skip(size - 8);
     }
 }
