@@ -181,3 +181,4 @@ All supported image and video formats can be found in the table below:
 - https://www.fileformat.info/format/tiff/egff.htm#TIFF.FO
 - http://netpbm.sourceforge.net/doc/#formats
 - https://www.garykessler.net/library/file_sigs.html
+- https://github.com/sannies/mp4parser/blob/c869d076e9cd42aba5a3e35d88827610dec6ca15/examples/src/main/java/com/google/code/mp4parser/example/GetHeight.java
