@@ -1,6 +1,6 @@
 {
     "name": "leather",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "description": "A pure JS library for extracting image/video attributes such as width, height, size, and mime type",
     "author": "Sidney Liebrand",
     "license": "MIT",
