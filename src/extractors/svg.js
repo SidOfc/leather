@@ -13,34 +13,105 @@ const UNITS = {
     rem: 16,
 };
 
-const WIDTH_PATTERN = /width=(["'])([^%]+?)\1/i;
-const HEIGHT_PATTERN = /height=(["'])([^%]+?)\1/i;
-const VIEWBOX_PATTERN = /viewbox=(["'])([^\1]+?)\1/i;
-const DIMENSION_PATTERN = new RegExp(
-    `^([0-9.]+(?:e\\d+)?)(${Object.keys(UNITS).join('|')})?$`
-);
+export function attributes(input) {
+    let attrQuote = null;
+    const stream = lazystream(input);
+    const found = {};
+    const result = {
+        width: 0,
+        height: 0,
+        size: stream.size(),
+        mime: 'image/svg+xml',
+    };
+
+    for (const chunk of stream.overlappingChunks(64)) {
+        const content = chunk.buffer.toString().toLowerCase();
+
+        if (found.start) {
+            let lastChar;
+            const tail = chunk.offset === 0 ? content : content.slice(32);
+
+            for (const char of tail) {
+                if (lastChar !== '\\') {
+                    if (lastChar === '=' && ['"', "'"].includes(char)) {
+                        attrQuote = char;
+                    } else if (char === attrQuote) {
+                        attrQuote = null;
+                    }
+
+                    if (!char.match(/\s/)) lastChar = char;
+                }
+
+                if (!attrQuote && char === '>') {
+                    found.end = chunk.offset + content.indexOf('>');
+
+                    break;
+                }
+            }
+        } else if (content.includes('<svg')) {
+            found.start = chunk.offset + content.indexOf('<svg');
+        }
+    }
+
+    if (found.start && found.end) {
+        const data = stream
+            .goto(found.start)
+            .take(found.end - found.start)
+            .toString();
+        const width = extractWidth(data);
+        const height = extractHeight(data);
+
+        if (width && height) {
+            Object.assign(result, {width, height});
+        } else {
+            const viewbox = extractViewbox(data);
+
+            if (width)
+                Object.assign(result, {
+                    width,
+                    height: Math.floor(width / viewbox.ratio),
+                });
+            else if (height)
+                Object.assign(result, {
+                    width: Math.floor(height * viewbox.ratio),
+                    height,
+                });
+            else
+                Object.assign(result, {
+                    width: viewbox.width,
+                    height: viewbox.height,
+                });
+        }
+    }
+
+    stream.close();
+
+    return result;
+}
 
 function parseDimension(value) {
-    const matches = value.toLowerCase().match(DIMENSION_PATTERN);
+    const possibleUnits = Object.keys(UNITS).join('|');
+    const pattern = new RegExp(`^([0-9.]+(?:e\\d+)?)(${possibleUnits})?$`);
+    const matches = value.toLowerCase().match(pattern);
 
     if (matches)
         return Math.round(Number(matches[1]) * (UNITS[matches[2]] || UNITS.px));
 }
 
 function extractWidth(data) {
-    const matches = data.match(WIDTH_PATTERN);
+    const matches = data.match(/width=(["'])([^%]+?)\1/i);
 
     if (matches) return parseDimension(matches[2]);
 }
 
 function extractHeight(data) {
-    const matches = data.match(HEIGHT_PATTERN);
+    const matches = data.match(/height=(["'])([^%]+?)\1/i);
 
     if (matches) return parseDimension(matches[2]);
 }
 
 function extractViewbox(data) {
-    const matches = data.match(VIEWBOX_PATTERN);
+    const matches = data.match(/viewbox=(["'])([^\1]+?)\1/i);
 
     if (matches) {
         const [width, height] = matches[2]
@@ -52,84 +123,4 @@ function extractViewbox(data) {
     }
 
     return {width: 0, height: 0, ratio: 1};
-}
-
-export function attributes(input) {
-    const stream = lazystream(input);
-    const bytes = [];
-    let startIndex = null;
-    let insideAttr = false;
-
-    while (stream.more()) {
-        const byte = stream.take()[0];
-
-        if (byte === 0x3c) {
-            // found potential opening tag "<" character
-            const nextByte = stream.take()[0];
-
-            if (nextByte === 0x73 || nextByte === 0x53) {
-                // next byte is either "s" or "S", assume
-                // that we have found the opening svg tag
-                stream.skip(3);
-                startIndex = stream.position();
-            }
-        } else if (!Number.isInteger(startIndex)) {
-            // we have not yet found svg opening tag,
-            // continue reading the next byte immediately
-            continue;
-        } else if (byte === 0x5c) {
-            // encountered a backslash, ignore next byte
-            stream.take();
-        } else if (byte === 0x22 || byte === 0x27) {
-            // encountered single or double quote,
-            // assume we are entering an attribute value
-            insideAttr = !insideAttr;
-            bytes.push(byte);
-        } else if (!insideAttr && byte === 0x3e) {
-            // encountered ">" character while not
-            // inside an attribute value, assume
-            // svg opening tag end
-            break;
-        } else {
-            // store bytes so we can convert them
-            // to a string for attribute parsing
-            bytes.push(byte);
-        }
-    }
-
-    const data = Buffer.from(bytes).toString();
-    const width = extractWidth(data);
-    const height = extractHeight(data);
-    const result = {
-        width: 0,
-        height: 0,
-        size: stream.size(),
-        mime: 'image/svg+xml',
-    };
-
-    stream.close();
-
-    if (width && height) {
-        Object.assign(result, {width, height});
-    } else {
-        const viewbox = extractViewbox(data);
-
-        if (width)
-            Object.assign(result, {
-                width,
-                height: Math.floor(width / viewbox.ratio),
-            });
-        else if (height)
-            Object.assign(result, {
-                width: Math.floor(height * viewbox.ratio),
-                height,
-            });
-        else
-            Object.assign(result, {
-                width: viewbox.width,
-                height: viewbox.height,
-            });
-    }
-
-    return result;
 }
