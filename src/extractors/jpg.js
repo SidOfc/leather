@@ -12,14 +12,18 @@ export function attributes(input) {
     stream.skip(4);
 
     while (stream.more()) {
-        const size = stream.takeUInt16BE();
-        const mark = stream.skip(size - 2).takeUInt8();
-        const next = stream.takeUInt8();
+        stream.skip(stream.takeUInt16BE() - 2);
+
+        const header = stream.take(2);
+        const mark = header.readUInt8();
+        const next = header.readUInt8(1);
 
         if (mark !== 0xff) break;
         if (next === 0xc0 || next === 0xc1 || next === 0xc2) {
-            result.height = stream.skip(3).takeUInt16BE();
-            result.width = stream.takeUInt16BE();
+            const dimensions = stream.skip(3).take(4);
+
+            result.height = dimensions.readUInt16BE();
+            result.width = dimensions.readUInt16BE(2);
 
             break;
         }
