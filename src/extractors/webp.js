@@ -1,6 +1,6 @@
 import {lazystream} from '../util.js';
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const header = stream.skip(12).take(4).toString();
     const isLossless = stream.skip(4).take()[0] === 0x2f;

@@ -1,6 +1,6 @@
 import {lazystream} from '../util.js';
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const firstLine = stream.takeLine().toString();
     const secondLine = stream.takeLine().toString();

@@ -60,32 +60,32 @@ yarn add leather
 After [installing the package](#installation), it can be imported using commonjs:
 
 ```javascript
-const {attributes} = require('leather');
+const {readMediaAttributes} = require('leather');
 ```
 
 Or using ES modules:
 
 ```javascript
-import {attributes} from 'leather';
+import {readMediaAttributes} from 'leather';
 ```
 
 Then, it can be called on [supported image and video formats](#supported-formats):
 
 ```javascript
-console.log(attributes('cat.jpg'));
+console.log(readMediaAttributes('cat.jpg'));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
 
 ## Buffer support
 
-Starting from version **2.1.0**, all `attributes` methods also accept `Buffer`
+Starting from version **2.1.0**, all `readMediaAttributes` methods also accept `Buffer`
 instances in addition to file paths:
 
 ```javascript
 const buffer = fs.readFileSync('cat.png');
 
-console.log(attributes(buffer));
+console.log(readMediaAttributes(buffer));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
@@ -102,10 +102,10 @@ require only the extractors you need, e.g. for jpg/jpeg using commonjs:
 
 ```javascript
 const {readFileSync} = require('fs');
-const {attributes} = require('leather/extractors/jpg');
+const {readMediaAttributes} = require('leather/extractors/jpg');
 
-console.log(attributes('cat.jpg'));
-console.log(attributes(readFileSync('cat.jpg')));
+console.log(readMediaAttributes('cat.jpg'));
+console.log(readMediaAttributes(readFileSync('cat.jpg')));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```
@@ -114,10 +114,10 @@ Or using ES modules:
 
 ```javascript
 import {readFileSync} from 'fs';
-import {attributes} from 'leather/extractors/jpg';
+import {readMediaAttributes} from 'leather/extractors/jpg';
 
-console.log(attributes('cat.jpg'));
-console.log(attributes(readFileSync('cat.jpg')));
+console.log(readMediaAttributes('cat.jpg'));
+console.log(readMediaAttributes(readFileSync('cat.jpg')));
 
 // => {width: 200, height: 200, size: 40000, mime: 'image/jpeg'}
 ```

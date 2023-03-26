@@ -1,30 +1,30 @@
 import {lazystream} from './util.js';
-import {attributes as bmp} from './extractors/bmp.js';
-import {attributes as dds} from './extractors/dds.js';
-import {attributes as gif} from './extractors/gif.js';
-import {attributes as icns} from './extractors/icns.js';
-import {attributes as ico} from './extractors/ico.js';
-import {attributes as j2c} from './extractors/j2c.js';
-import {attributes as jpg} from './extractors/jpg.js';
-import {attributes as ktx} from './extractors/ktx.js';
-import {attributes as png} from './extractors/png.js';
-import {attributes as pnm} from './extractors/pnm.js';
-import {attributes as psd} from './extractors/psd.js';
-import {attributes as svg} from './extractors/svg.js';
-import {attributes as tiff} from './extractors/tiff.js';
-import {attributes as webp} from './extractors/webp.js';
-import {attributes as xpm} from './extractors/xpm.js';
-import {attributes as xbm} from './extractors/xbm.js';
-import {attributes as fit} from './extractors/fit.js';
-import {attributes as cel} from './extractors/cel.js';
-import {attributes as hdr} from './extractors/hdr.js';
-import {attributes as avi} from './extractors/avi.js';
-import {attributes as fli} from './extractors/fli.js';
-import {attributes as flv} from './extractors/flv.js';
-import {attributes as ogv} from './extractors/ogv.js';
-import {attributes as mp4} from './extractors/mp4.js';
-import {attributes as webm} from './extractors/webm.js';
-import {attributes as wmv} from './extractors/wmv.js';
+import {readMediaAttributes as bmp} from './extractors/bmp.js';
+import {readMediaAttributes as dds} from './extractors/dds.js';
+import {readMediaAttributes as gif} from './extractors/gif.js';
+import {readMediaAttributes as icns} from './extractors/icns.js';
+import {readMediaAttributes as ico} from './extractors/ico.js';
+import {readMediaAttributes as j2c} from './extractors/j2c.js';
+import {readMediaAttributes as jpg} from './extractors/jpg.js';
+import {readMediaAttributes as ktx} from './extractors/ktx.js';
+import {readMediaAttributes as png} from './extractors/png.js';
+import {readMediaAttributes as pnm} from './extractors/pnm.js';
+import {readMediaAttributes as psd} from './extractors/psd.js';
+import {readMediaAttributes as svg} from './extractors/svg.js';
+import {readMediaAttributes as tiff} from './extractors/tiff.js';
+import {readMediaAttributes as webp} from './extractors/webp.js';
+import {readMediaAttributes as xpm} from './extractors/xpm.js';
+import {readMediaAttributes as xbm} from './extractors/xbm.js';
+import {readMediaAttributes as fit} from './extractors/fit.js';
+import {readMediaAttributes as cel} from './extractors/cel.js';
+import {readMediaAttributes as hdr} from './extractors/hdr.js';
+import {readMediaAttributes as avi} from './extractors/avi.js';
+import {readMediaAttributes as fli} from './extractors/fli.js';
+import {readMediaAttributes as flv} from './extractors/flv.js';
+import {readMediaAttributes as ogv} from './extractors/ogv.js';
+import {readMediaAttributes as mp4} from './extractors/mp4.js';
+import {readMediaAttributes as webm} from './extractors/webm.js';
+import {readMediaAttributes as wmv} from './extractors/wmv.js';
 
 // extractor mapping table based on `lazystream(file).identifier()`
 const extractors = {
@@ -56,7 +56,7 @@ const extractors = {
     wmv,
 };
 
-export function attributes(file) {
+export function readMediaAttributes(file) {
     const stream = lazystream(file);
     const result = {width: 0, height: 0, size: 0, mime: undefined};
     const extract = extractors[stream.identifier()];

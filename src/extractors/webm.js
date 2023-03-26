@@ -1,6 +1,6 @@
 import {lazystream, readVint} from '../util.js';
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const byte = stream.goto(4).take()[0];
     const mime = byte === 0xa3 ? 'video/x-matroska' : 'video/webm';

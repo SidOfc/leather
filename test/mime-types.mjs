@@ -1,7 +1,7 @@
 import {readdirSync} from 'fs';
 import test from 'ava';
 import mime from 'mime-types';
-import {attributes} from '../src/index.js';
+import {readMediaAttributes} from '../src/index.js';
 
 readdirSync('test/files')
     .map((name) => {
@@ -10,7 +10,7 @@ readdirSync('test/files')
         return {
             path,
             name,
-            mime: attributes(path).mime,
+            mime: readMediaAttributes(path).mime,
             expected: mime.lookup(path),
         };
     })
