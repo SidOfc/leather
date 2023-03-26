@@ -22,19 +22,25 @@ export function attributes(input) {
 
 function parse(stream, lastTkhd) {
     while (stream.more()) {
-        const initialSize = stream.takeUInt32BE();
-        const header = stream.take(4).toString();
-        const size = initialSize === 1 ? stream.takeUInt64BE() : initialSize;
+        const header = stream.take(8);
+        const initialSize = header.readUInt32BE();
+        const type = header.subarray(4, 8).toString();
+        const size =
+            initialSize === 1
+                ? stream.takeUInt64BE()
+                : initialSize === 0
+                ? stream.size() - stream.position() + header.length
+                : initialSize;
 
-        if (['moov', 'mdia', 'trak'].includes(header)) {
+        if (['moov', 'mdia', 'trak'].includes(type)) {
             const result = parse(stream, lastTkhd);
 
             if (result) return result;
-        } else if (header === 'tkhd') {
-            lastTkhd = stream.take(size - 8);
+        } else if (type === 'tkhd') {
+            lastTkhd = stream.take(size - header.length);
 
-            stream.rewind(size - 8);
-        } else if (header === 'hdlr') {
+            stream.rewind(size - header.length);
+        } else if (type === 'hdlr') {
             if (stream.skip(8).take(4).includes('vide')) {
                 return {
                     width: lastTkhd.readUInt32BE(lastTkhd.length - 8) / 65536,
@@ -45,7 +51,7 @@ function parse(stream, lastTkhd) {
             stream.rewind(12);
         }
 
-        stream.skip(size - 8);
+        stream.skip(size - header.length);
     }
 
     return {width: 0, height: 0};

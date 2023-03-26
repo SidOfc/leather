@@ -1,32 +1,46 @@
-import {lazystream} from '../util.js';
+import {lazystream, readVint} from '../util.js';
 
 export function attributes(input) {
     const stream = lazystream(input);
-    const startIndex = stream.indexOf(Buffer.from([0xb0]));
-    const result = {
-        width: 0,
-        height: 0,
-        size: stream.size(),
-        mime: mime(stream),
-    };
+    const byte = stream.goto(4).take()[0];
+    const mime = byte === 0xa3 ? 'video/x-matroska' : 'video/webm';
+    const path = ['18538067', '1654ae6b', 'ae', 'e0'];
+    const targets = ['b0', 'ba'];
+    const dimensions = new Map();
 
-    if (startIndex !== -1) {
-        const widthSize = stream.goto(startIndex).skip(1).take()[0] & 0x7;
-        result.width = stream.takeUIntBE(widthSize);
+    stream.goto(0);
 
-        const heightSize = stream.skip(1).take()[0] & 0x7;
-        result.height = stream.takeUIntBE(heightSize);
+    while (stream.more()) {
+        const header = stream.take(40);
+        const tagVint = readVint(header);
+        const sizeVint = readVint(header, tagVint.length);
+        const tag = header.subarray(0, tagVint.length).toString('hex');
+        const skip = !path.includes(tag);
+        const extract = targets.includes(tag);
+
+        stream.rewind(header.length - tagVint.length - sizeVint.length);
+
+        if (extract) {
+            const dimension = stream
+                .take(sizeVint.value)
+                .readUIntBE(0, sizeVint.value);
+
+            dimensions.set(tag, dimension);
+        } else if (skip) {
+            stream.skip(sizeVint.value);
+        }
+
+        if (dimensions.size === targets.length) break;
     }
+
+    const result = {
+        width: dimensions.get('b0', 0),
+        height: dimensions.get('ba', 0),
+        size: stream.size(),
+        mime: mime,
+    };
 
     stream.close();
 
     return result;
-}
-
-function mime(stream) {
-    const position = stream.position();
-    const byte = stream.goto(4).take()[0];
-    stream.goto(position);
-
-    return byte === 0xa3 ? 'video/x-matroska' : 'video/webm';
 }

@@ -27,7 +27,7 @@ const BYTE_INFO = new Map();
     BYTE_INFO.set(/^464c56/i,                             'flv');
     BYTE_INFO.set(/^.{6}(?:20|1[4c]|6674)/i,              'mp4');
     BYTE_INFO.set(/^4f676753/i,                           'ogv');
-    BYTE_INFO.set(/^1a45dfa3(?:01|9f|a3)/i,               'webm');
+    BYTE_INFO.set(/^1a45dfa3/i,                           'webm');
     BYTE_INFO.set(/^50(?:3[1-7]|46)/i,                    'pnm');
     BYTE_INFO.set(/^3026b2/i,                             'wmv');
 }
@@ -181,28 +181,19 @@ export function lazystream(file) {
         },
 
         indexOf(buffer) {
-            let result = -1;
             const currentPosition = position;
 
-            while (methods.more()) {
-                const byte = methods.take()[0];
+            for (const chunk of methods.overlappingChunks(128)) {
+                const idx = chunk.buffer.indexOf(buffer);
 
-                if (byte === buffer[0]) {
-                    if (
-                        buffer.length === 1 ||
-                        buffer
-                            .slice(1)
-                            .includes(methods.take(buffer.length - 1))
-                    ) {
-                        result = position - buffer.length;
+                if (idx !== -1) {
+                    position = currentPosition;
 
-                        break;
-                    }
+                    return position + chunk.offset + idx;
                 }
             }
 
-            position = currentPosition;
-            return result;
+            return -1;
         },
 
         takeLine() {
@@ -220,6 +211,29 @@ export function lazystream(file) {
             const idx = methods.indexOf(Buffer.from('\n'));
 
             return methods.skip((idx === -1 ? size : idx) - position + 1);
+        },
+
+        overlappingChunks(chunkSize = 64) {
+            let offset = 0;
+            const size = Math.floor(chunkSize / 2);
+            const buffer = Buffer.alloc(size * 2);
+
+            return (function* () {
+                while (methods.more()) {
+                    if (offset === 0) {
+                        methods
+                            .take(buffer.length)
+                            .copy(buffer, 0, 0, buffer.length);
+                    } else {
+                        buffer.copy(buffer, 0, size, buffer.length);
+                        methods.take(size).copy(buffer, size, 0, size);
+                    }
+
+                    yield {buffer, offset};
+
+                    offset += size;
+                }
+            })();
         },
 
         close() {
@@ -244,8 +258,28 @@ export function lazystream(file) {
     return methods;
 }
 
-export function roundToPrecision(number, precision = 0) {
-    const multiplier = Math.pow(10, precision);
+export function readVint(buffer, start = 0) {
+    let value = buffer[start];
+    const length = Math.clz32(value) - 23;
 
-    return Math.round(number * multiplier) / multiplier;
+    if (
+        length === 8 &&
+        buffer[start + 1] >= 0x20 &&
+        buffer.readUIntBE(start + 2, 6) > 0
+    ) {
+        return {length, value: -1};
+    }
+
+    value &= (1 << (8 - length)) - 1;
+
+    for (let i = 1; i < length; i += 1) {
+        value *= 2 ** 8;
+        value += buffer[start + i];
+    }
+
+    if (value === 2 ** (length * 7) - 1) {
+        value = -1;
+    }
+
+    return {length, value: Number.isInteger(value) ? value : -1};
 }

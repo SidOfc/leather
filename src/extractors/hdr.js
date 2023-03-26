@@ -9,21 +9,19 @@ export function attributes(input) {
         mime: 'image/vnd.radiance',
     };
 
-    while (stream.more()) {
-        const line = stream.takeLine().toString();
+    for (const chunk of stream.overlappingChunks(64)) {
+        const content = chunk.buffer.toString();
+        const matches = content.match(/[-+][xy]\s+\d+\s/gi);
 
-        if (line.match(/[-+][xy]/i)) {
-            const parts = line
-                .split(' ')
-                .map((part) => part.replace(/[^a-z0-9]/gi, '').toUpperCase());
+        if (matches?.length === 2) {
+            for (const match of matches) {
+                const cleanMatch = match.toLowerCase().trim().slice(1);
+                const [axis, stringSize] = cleanMatch.split(/\s+/i);
 
-            if (parts[0] === 'Y') {
-                result.width = parseInt(parts[3], 10);
-                result.height = parseInt(parts[1], 10);
-            } else {
-                result.width = parseInt(parts[1], 10);
-                result.height = parseInt(parts[3], 10);
+                if (axis === 'x') result.width = parseInt(stringSize);
+                if (axis === 'y') result.height = parseInt(stringSize);
             }
+
             break;
         }
     }

@@ -1,6 +1,5 @@
 import {lazystream} from '../util.js';
 
-const WHITESPACE = [0x20, 0x09, 0x0d, 0x0a];
 const MIME_TYPES = {
     ['PF']: 'application/x-font-type1',
     ['P1']: 'image/x-portable-bitmap',
@@ -14,7 +13,7 @@ const MIME_TYPES = {
 
 export function attributes(input) {
     const stream = lazystream(input);
-    const type = stream.take(2).toString();
+    const type = stream.take(3).toString().trim();
     const attrs = type === 'P7' ? pam(stream) : pnm(stream);
     const result = {
         ...attrs,
@@ -29,43 +28,33 @@ export function attributes(input) {
 
 function pnm(stream) {
     while (stream.more()) {
-        const byte = stream.take()[0];
+        const line = stream.takeLine().toString();
 
-        if (WHITESPACE.includes(byte)) {
-            continue;
-        } else if (byte === 0x23) {
-            stream.skipLine();
-        } else {
-            stream.rewind(1);
+        if (line.match(/^\d+\s+\d+/)) {
+            const [widthString, heightString] = line.split(/\s+/);
 
-            break;
+            return {
+                width: parseInt(widthString),
+                height: parseInt(heightString),
+            };
         }
     }
-
-    return {
-        width: parseInt(stream.takeUntil(WHITESPACE).toString(), 10),
-        height: parseInt(
-            stream.skipWhile(WHITESPACE).takeUntil(WHITESPACE).toString(),
-            10
-        ),
-    };
 }
 
 function pam(stream) {
     const result = {width: 0, height: 0};
 
     while (stream.more()) {
-        const key = stream.takeUntil(WHITESPACE).toString();
+        const [key, stringSize] = stream
+            .takeLine()
+            .toString()
+            .toLowerCase()
+            .split(/\s+/i);
 
-        if (key === 'WIDTH' || key === 'HEIGHT') {
-            result[key.toLowerCase()] = parseInt(
-                stream.skipWhile(WHITESPACE).takeUntil(WHITESPACE).toString(),
-                10
-            );
+        if (key === 'width' || key === 'height') {
+            result[key] = parseInt(stringSize);
 
             if (result.width && result.height) break;
-        } else {
-            stream.skipLine();
         }
     }
 

@@ -9,14 +9,18 @@ export function attributes(input) {
         mime: 'image/x-xpixmap',
     };
 
-    const startIndex = stream.indexOf(Buffer.from('{\n"'));
+    const target = '[] = {\n';
+    const startIndex = stream.indexOf(target);
+    const [widthString, heightString] = stream
+        .skip(startIndex + target.length)
+        .takeLine()
+        .toString()
+        .replace(/[^\d\s]/g, '')
+        .split(/\s+/);
 
-    if (startIndex !== -1) {
-        result.width = parseInt(
-            stream.goto(startIndex).skip(3).takeUntil(0x20).toString(),
-            10
-        );
-        result.height = parseInt(stream.skip(1).takeUntil(0x20).toString(), 10);
+    if (widthString && heightString) {
+        result.width = parseInt(widthString);
+        result.height = parseInt(heightString);
     }
 
     stream.close();

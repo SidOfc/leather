@@ -1,4 +1,4 @@
-import {lazystream, roundToPrecision} from '../util.js';
+import {lazystream} from '../util.js';
 
 export function attributes(input) {
     const stream = lazystream(input);
