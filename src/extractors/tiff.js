@@ -1,10 +1,12 @@
 import {lazystream} from '../util.js';
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const isBigEndian =
         Buffer.compare(stream.take(2), Buffer.from([0x4d, 0x4d])) === 0;
-    const attrs = isBigEndian ? attributesBE(stream) : attributesLE(stream);
+    const attrs = isBigEndian
+        ? readBigEndian(stream)
+        : readLittleEndian(stream);
     const result = {...attrs, size: stream.size(), mime: 'image/tiff'};
 
     stream.close();
@@ -12,7 +14,7 @@ export function attributes(input) {
     return result;
 }
 
-function attributesBE(stream) {
+function readBigEndian(stream) {
     const result = {width: 0, height: 0};
     const ifdIndex = stream.skip(2).takeUInt32BE();
 
@@ -35,7 +37,7 @@ function attributesBE(stream) {
     return result;
 }
 
-function attributesLE(stream) {
+function readLittleEndian(stream) {
     const result = {width: 0, height: 0};
     const ifdIndex = stream.skip(2).takeUInt32LE();
 

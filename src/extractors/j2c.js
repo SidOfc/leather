@@ -1,6 +1,6 @@
 import {lazystream} from '../util.js';
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const dimensions = stream.skip(48).take(8);
     const height = dimensions.readUInt32BE();

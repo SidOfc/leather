@@ -5,7 +5,7 @@ const MIME_TYPES = {
     ['6674797071742020']: 'video/quicktime',
 };
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const size = stream.size();
     const type = stream.skip(4).take(8).toString('hex');

@@ -13,7 +13,7 @@ const UNITS = {
     rem: 16,
 };
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     let attrQuote = null;
     const stream = lazystream(input);
     const found = {};

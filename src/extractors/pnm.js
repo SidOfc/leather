@@ -11,7 +11,7 @@ const MIME_TYPES = {
     ['P7']: 'image/x-portable-arbitrarymap',
 };
 
-export function attributes(input) {
+export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const type = stream.take(3).toString().trim();
     const attrs = type === 'P7' ? pam(stream) : pnm(stream);
