@@ -16,7 +16,10 @@ const UNITS = {
 export function readMediaAttributes(input) {
     let attrQuote = null;
     const stream = lazystream(input);
-    const found = {};
+    const found = {
+        start: null,
+        end: null
+    };
     const result = {
         width: 0,
         height: 0,
@@ -27,7 +30,7 @@ export function readMediaAttributes(input) {
     for (const chunk of stream.overlappingChunks(64)) {
         const content = chunk.buffer.toString().toLowerCase();
 
-        if (found.start) {
+        if (found.start !== null) {
             let lastChar;
             const tail = chunk.offset === 0 ? content : content.slice(32);
 
@@ -47,6 +50,9 @@ export function readMediaAttributes(input) {
 
                     break;
                 }
+            }
+            if (found.end !== null) {
+                break;
             }
         } else if (content.includes('<svg')) {
             found.start = chunk.offset + content.indexOf('<svg');
