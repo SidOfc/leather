@@ -79,6 +79,22 @@ test('svg', (t) => {
     t.like(pathAttributes, bufferAttributes);
 });
 
+test('svg viewbox vs width and height', (t) => {
+    const expected = {
+        width: 640,
+        height: 480,
+        size: 200,
+        mime: 'image/svg+xml',
+    };
+    const pathAttributes = readMediaAttributes('test/files/example.2.svg');
+    const bufferAttributes = readMediaAttributes(
+        readFileSync('test/files/example.2.svg')
+    );
+
+    t.like(expected, pathAttributes);
+    t.like(pathAttributes, bufferAttributes);
+});
+
 test('gif', (t) => {
     const expected = {width: 1, height: 2, size: 56, mime: 'image/gif'};
     const pathAttributes = readMediaAttributes('test/files/example.gif');

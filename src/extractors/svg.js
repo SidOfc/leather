@@ -58,29 +58,27 @@ export function readMediaAttributes(input) {
             .goto(found.start)
             .take(found.end - found.start)
             .toString();
+        const viewbox = extractViewbox(data);
         const width = extractWidth(data);
         const height = extractHeight(data);
 
-        if (width && height) {
+        if (viewbox.width && viewbox.height) {
+            Object.assign(result, {
+                width: viewbox.width,
+                height: viewbox.height,
+            });
+        } else if (width && height) {
             Object.assign(result, {width, height});
-        } else {
-            const viewbox = extractViewbox(data);
-
-            if (width)
-                Object.assign(result, {
-                    width,
-                    height: Math.floor(width / viewbox.ratio),
-                });
-            else if (height)
-                Object.assign(result, {
-                    width: Math.floor(height * viewbox.ratio),
-                    height,
-                });
-            else
-                Object.assign(result, {
-                    width: viewbox.width,
-                    height: viewbox.height,
-                });
+        } else if (width) {
+            Object.assign(result, {
+                width,
+                height: Math.floor(width / viewbox.ratio),
+            });
+        } else if (height) {
+            Object.assign(result, {
+                width: Math.floor(height * viewbox.ratio),
+                height,
+            });
         }
     }
 
