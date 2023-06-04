@@ -30,9 +30,15 @@ export function readMediaAttributes(input) {
     for (const chunk of stream.overlappingChunks(64)) {
         const content = chunk.buffer.toString().toLowerCase();
 
+        if (content.includes('<svg')) {
+            found.start = chunk.offset + content.indexOf('<svg');
+        }
+
         if (found.start !== null) {
             let lastChar;
-            const tail = chunk.offset === 0 ? content : content.slice(32);
+            const tail = chunk.offset === 0
+                ? content.slice(found.start)
+                : content.slice(32);
 
             for (const char of tail) {
                 if (lastChar !== '\\') {
@@ -54,12 +60,10 @@ export function readMediaAttributes(input) {
             if (found.end !== null) {
                 break;
             }
-        } else if (content.includes('<svg')) {
-            found.start = chunk.offset + content.indexOf('<svg');
         }
     }
 
-    if (found.start && found.end) {
+    if (found.start !== null && found.end !== null) {
         const data = stream
             .goto(found.start)
             .take(found.end - found.start)
