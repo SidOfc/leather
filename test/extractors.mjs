@@ -80,7 +80,12 @@ test('svg', (t) => {
 });
 
 test('svg (rect)', (t) => {
-    const expected = {width: 640, height: 480, size: 201, mime: 'image/svg+xml'};
+    const expected = {
+        width: 640,
+        height: 480,
+        size: 201,
+        mime: 'image/svg+xml',
+    };
     const pathAttributes = readMediaAttributes('test/files/example.rect.svg');
     const bufferAttributes = readMediaAttributes(
         readFileSync('test/files/example.rect.svg')
@@ -91,7 +96,12 @@ test('svg (rect)', (t) => {
 });
 
 test('svg (without XML processing instruction)', (t) => {
-    const expected = {width: 320, height: 240, size: 104, mime: 'image/svg+xml'};
+    const expected = {
+        width: 320,
+        height: 240,
+        size: 104,
+        mime: 'image/svg+xml',
+    };
     const pathAttributes = readMediaAttributes('test/files/example.noxml.svg');
     const bufferAttributes = readMediaAttributes(
         readFileSync('test/files/example.noxml.svg')
@@ -509,6 +519,24 @@ test('mp4 (mp42)', (t) => {
     const pathAttributes = readMediaAttributes('test/files/example.mp42.mp4');
     const bufferAttributes = readMediaAttributes(
         readFileSync('test/files/example.mp42.mp4')
+    );
+
+    t.like(expected, pathAttributes);
+    t.like(pathAttributes, bufferAttributes);
+});
+
+test('mp4 (floating point dimensions)', (t) => {
+    const expected = {
+        width: 2172,
+        height: 1080,
+        size: 2870087,
+        mime: 'video/mp4',
+    };
+    const pathAttributes = readMediaAttributes(
+        'test/files/example.float-dimensions.mp4'
+    );
+    const bufferAttributes = readMediaAttributes(
+        readFileSync('test/files/example.float-dimensions.mp4')
     );
 
     t.like(expected, pathAttributes);
