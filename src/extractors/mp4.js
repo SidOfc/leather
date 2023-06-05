@@ -43,8 +43,12 @@ function parse(stream, lastTkhd) {
         } else if (type === 'hdlr') {
             if (stream.skip(8).take(4).includes('vide')) {
                 return {
-                    width: lastTkhd.readUInt32BE(lastTkhd.length - 8) / 65536,
-                    height: lastTkhd.readUInt32BE(lastTkhd.length - 4) / 65536,
+                    width: Math.floor(
+                        lastTkhd.readUInt32BE(lastTkhd.length - 8) / 65536
+                    ),
+                    height: Math.floor(
+                        lastTkhd.readUInt32BE(lastTkhd.length - 4) / 65536
+                    ),
                 };
             }
 
