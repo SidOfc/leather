@@ -543,6 +543,24 @@ test('mp4 (floating point dimensions)', (t) => {
     t.like(pathAttributes, bufferAttributes);
 });
 
+test('mp4 (alternative header)', (t) => {
+    const expected = {
+        width: 1920,
+        height: 1300,
+        size: 1808533,
+        mime: 'video/mp4',
+    };
+    const pathAttributes = readMediaAttributes(
+        'test/files/example.mp42.alt-header.mp4'
+    );
+    const bufferAttributes = readMediaAttributes(
+        readFileSync('test/files/example.mp42.alt-header.mp4')
+    );
+
+    t.like(expected, pathAttributes);
+    t.like(pathAttributes, bufferAttributes);
+});
+
 test('m4v', (t) => {
     const expected = {width: 2, height: 4, size: 1580, mime: 'video/x-m4v'};
     const pathAttributes = readMediaAttributes('test/files/example.m4v');
