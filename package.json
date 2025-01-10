@@ -81,9 +81,9 @@
         "bracketSpacing": false
     },
     "devDependencies": {
-        "ava": "^5.2.0",
+        "ava": "^6.2.0",
         "mime-types": "^2.1.35",
-        "prettier": "^2.6.0",
-        "rollup": "^3.19.1"
+        "prettier": "^3.4.2",
+        "rollup": "^4.30.1"
     }
 }

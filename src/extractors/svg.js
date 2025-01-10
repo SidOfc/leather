@@ -18,7 +18,7 @@ export function readMediaAttributes(input) {
     const stream = lazystream(input);
     const found = {
         start: null,
-        end: null
+        end: null,
     };
     const result = {
         width: 0,
@@ -36,9 +36,10 @@ export function readMediaAttributes(input) {
 
         if (found.start !== null) {
             let lastChar;
-            const tail = chunk.offset === 0
-                ? content.slice(found.start)
-                : content.slice(32);
+            const tail =
+                chunk.offset === 0
+                    ? content.slice(found.start)
+                    : content.slice(32);
 
             for (const char of tail) {
                 if (lastChar !== '\\') {

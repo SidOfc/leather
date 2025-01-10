@@ -29,8 +29,8 @@ function parse(stream, lastTkhd) {
             initialSize === 1
                 ? stream.takeUInt64BE()
                 : initialSize === 0
-                ? stream.size() - stream.position() + header.length
-                : initialSize;
+                  ? stream.size() - stream.position() + header.length
+                  : initialSize;
 
         if (['moov', 'mdia', 'trak'].includes(type)) {
             const result = parse(stream, lastTkhd);
@@ -44,10 +44,10 @@ function parse(stream, lastTkhd) {
             if (stream.skip(8).take(4).includes('vide')) {
                 return {
                     width: Math.floor(
-                        lastTkhd.readUInt32BE(lastTkhd.length - 8) / 65536
+                        lastTkhd.readUInt32BE(lastTkhd.length - 8) / 65536,
                     ),
                     height: Math.floor(
-                        lastTkhd.readUInt32BE(lastTkhd.length - 4) / 65536
+                        lastTkhd.readUInt32BE(lastTkhd.length - 4) / 65536,
                     ),
                 };
             }
