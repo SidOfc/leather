@@ -12,8 +12,8 @@ export function readMediaAttributes(input) {
     const mime = header.includes('MNG')
         ? 'video/x-mng'
         : stream.take(128).includes('acTL')
-        ? 'image/apng'
-        : 'image/png';
+          ? 'image/apng'
+          : 'image/png';
     const result = {width, height, size: stream.size(), mime};
 
     stream.close();

@@ -96,7 +96,7 @@ export function lazystream(file) {
                     buffer,
                     0,
                     bytes,
-                    position
+                    position,
                 );
 
                 position += bytesRead;
