@@ -39,7 +39,7 @@ by steering clear of any command-line tools which makes it more portable.
 
 # Node support
 
-Stable Node versions from 14.18 and up are tested, Node 12.20 and up is supported.
+Stable Node versions from 16.x and up are tested.
 
 # Installation
 
